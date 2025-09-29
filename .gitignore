@@ -1,0 +1,24 @@
+# Go
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+# vendor/   # uncomment if you ever vendor deps
+
+# IDE
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs & data
+*.log
+*.db
+
+# Local secrets
+config.json

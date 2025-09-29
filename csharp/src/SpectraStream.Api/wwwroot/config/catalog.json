@@ -1,0 +1,38 @@
+{
+  "abilities": [
+    {
+      "id": "trex",
+      "name": "T-Rex Roar",
+      "price_cents": 300,
+      "sfx_url": "https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3",
+      "icon_url": "",
+      "cooldown_ms": 3000,
+      "volume": 0.7
+    },
+    {
+      "id": "goat",
+      "name": "Goat Noises",
+      "price_cents": 200,
+      "sfx_url": "https://www.soundjay.com/buttons/sounds/button-3.mp3",
+      "icon_url": "",
+      "cooldown_ms": 2500,
+      "volume": 0.8
+    }
+  ],
+  "quests": [
+    {
+      "id": "call-maam",
+      "name": "Call a man \"ma'am\"",
+      "price_cents": 499,
+      "icon_url": "",
+      "target": 1
+    },
+    {
+      "id": "soundboard-5x",
+      "name": "Make 5 calls with X soundboard",
+      "price_cents": 399,
+      "icon_url": "",
+      "target": 5
+    }
+  ]
+}

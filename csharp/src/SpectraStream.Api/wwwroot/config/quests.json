@@ -1,0 +1,4 @@
+{
+  "GOAT":   { "label": "Goat",  "icon": "/assets/icons/goat.png",  "defaultTarget": 3 },
+  "SIREN":  { "label": "Siren", "icon": "/assets/icons/siren.png", "defaultTarget": 2 }
+}

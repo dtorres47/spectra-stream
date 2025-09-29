@@ -1,0 +1,177 @@
+:root {
+    --quest-height: 140px;
+    --quest-gap: 16px;
+}
+
+/* Full viewport & dark base */
+html, body {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    background: #1f1f1f;
+    overflow: hidden;
+}
+
+/* Background video — fit entire video, preserve 2:3, letterbox if needed */
+#bg-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* <-- keeps whole 1080x1620 in view */
+    z-index: 0;
+    background: #1f1f1f;   /* fills the letterbox area */
+}
+
+/* Foreground overlay above video */
+.overlay-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--quest-gap);
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', monospace;
+    color: #eee;
+    background: transparent;
+}
+
+/* Click animation layer (darken + centered video) */
+#animation-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s ease;
+    z-index: 10;
+    pointer-events: none;       /* ignore clicks when hidden */
+}
+#animation-overlay.active {
+    opacity: 1;
+    pointer-events: auto;       /* block clicks during animation */
+}
+
+/* Popup animation video fills viewport, preserves aspect */
+#animation-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+}
+
+/* Scroll area fills remaining space; shows scrollbar when >4 quests */
+.quest-scroll {
+    flex: 1 1 auto;
+    min-height: calc((var(--quest-height) * 4) + (var(--quest-gap) * 3));
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+}
+.quest-scroll::-webkit-scrollbar { width: 8px; }
+.quest-scroll::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+.quest-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* Vertical list of quest bubbles */
+.quest-history {
+    display: flex;
+    flex-direction: column;
+    gap: var(--quest-gap);
+}
+
+/* Quest bubble */
+.quest-bubble {
+    display: flex; align-items: center;
+    height: var(--quest-height);
+    background: rgba(42,42,42,0.6);
+    border: 3px solid #444;
+    padding: 12px;
+    box-shadow: 2px 2px 0 #000;
+    cursor: pointer;
+}
+.quest-bubble.completed {
+    cursor: default;
+    opacity: 0.15;
+    background: transparent;
+    border-color: rgba(68,68,68,0.15);
+}
+
+/* Icon fills full height */
+.quest-icon {
+    flex: 0 0 var(--quest-height);
+    height: var(--quest-height);
+    margin-right: 16px;
+    border: 3px solid #444;
+    background: #111;
+    display: flex; align-items: center; justify-content: center;
+}
+.quest-icon img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+/* Text */
+.quest-text { flex: 1 1 auto; text-align: left; }
+.quest-title { margin: 0; font-size: 1.4rem; line-height: 1.1; }
+.quest-desc { margin: 6px 0 0; font-size: 1.1rem; opacity: 0.9; }
+
+/* Count on right */
+.quest-count {
+    flex: 0 0 70px; text-align: right;
+    font-size: 1.4rem; margin-left: 16px;
+}
+
+/* Stats bar pinned at bottom */
+.quest-stats {
+    flex: 0 0 calc(var(--quest-height) * 0.25);
+    display: flex; align-items: center; justify-content: space-around;
+    background: rgba(30,30,30,0.7);
+    border: 3px solid #444;
+    padding: 4px;
+    box-shadow: 2px 2px 0 #000;
+}
+.stats-item { font-size: 1.1rem; text-align: center; }
+
+/* Quest popup message */
+#quest-popup-message {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    z-index: 20;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#quest-popup-message.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+#quest-popup-message.fade-out {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+
+.quest-popup-box {
+    display: inline-block;
+    padding: 16px 24px;
+    background: rgba(30,30,30,0.9);
+    border: 4px solid gold;
+    box-shadow: 0 0 12px gold;
+    border-radius: 8px;
+    font-family: 'Press Start 2P', monospace;
+    color: #ffd700;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* Fade animation */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, 20px); }
+    10% { opacity: 1; transform: translate(-50%, 0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, -20px); }
+}
