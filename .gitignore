@@ -1,4 +1,4 @@
-# Go
+# Go build artifacts
 *.exe
 *.dll
 *.so
@@ -8,7 +8,15 @@
 go.work
 # vendor/   # uncomment if you ever vendor deps
 
-# IDE
+# Visual Studio solution & user files
+/csharp/src/SpectraStream.Api/bin/
+/csharp/src/SpectraStream.Api/obj/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# IDE & editor files
 .idea/
 .vscode/
 
@@ -22,3 +30,38 @@ Thumbs.db
 
 # Local secrets
 config.json
+appsettings.Development.json
+
+# Ignore media files in shared content folder
+/content/videos/*
+/content/images/*
+/content/audio/*
+!/content/videos/.keep
+!/content/images/.keep
+!/content/audio/.keep
+
+# Ignore media files in wwwroot/content but keep folder structure
+/csharp/src/SpectraStream.Api/wwwroot/content/*
+!/csharp/src/SpectraStream.Api/wwwroot/content/.keep
+
+[TestResults]/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Build results
+x64/
+x86/
+[Aa]rtifacts/
+[Ll]og/
+[Ll]ogs/
+
+# Rider / ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+

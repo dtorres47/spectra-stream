@@ -31,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseRouting();
 app.MapControllers();
@@ -38,21 +39,54 @@ app.MapControllers();
 // SignalR hub
 app.MapHub<OverlayHub>("/ws");
 
-// Overlay + panel routes
+// Default route -> overlay
+app.MapGet("/", async context =>
+{
+    context.Response.ContentType = "text/html; charset=utf-8";
+    await context.Response.SendFileAsync(
+        Path.Combine(app.Environment.WebRootPath, "index.html")
+    );
+});
+
 app.MapGet("/overlay", async context =>
 {
     context.Response.ContentType = "text/html; charset=utf-8";
-    await context.Response.SendFileAsync(Path.Combine(app.Environment.WebRootPath, "index.html"));
+    await context.Response.SendFileAsync(
+        Path.Combine(app.Environment.WebRootPath, "index.html")
+    );
 });
 
 app.MapGet("/panel", async context =>
 {
     context.Response.ContentType = "text/html; charset=utf-8";
-    await context.Response.SendFileAsync(Path.Combine(app.Environment.WebRootPath, "panel.html"));
+    await context.Response.SendFileAsync(
+        Path.Combine(app.Environment.WebRootPath, "panel.html")
+    );
 });
 
-// Health check
+app.MapGet("/quests", async context =>
+{
+    context.Response.ContentType = "text/html; charset=utf-8";
+    await context.Response.SendFileAsync(
+        Path.Combine(app.Environment.WebRootPath, "quests", "index.html")
+    );
+});
+
+// Test page
+app.MapGet("/test", async context =>
+{
+    context.Response.ContentType = "text/html; charset=utf-8";
+    await context.Response.SendFileAsync(
+        Path.Combine(app.Environment.WebRootPath, "test", "index.html")
+    );
+});
+
+// Health checks
 app.MapGet("/api/health", () =>
+    Results.Json(new { status = "ok", service = "spectra-stream" })
+);
+
+app.MapGet("/healthz", () =>
     Results.Json(new { status = "ok", service = "spectra-stream" })
 );
 

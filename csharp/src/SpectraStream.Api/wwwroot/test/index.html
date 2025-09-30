@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Page</title>
+  <link rel="stylesheet" href="/css/shared.css">
+  <script src="/js/navbar.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #111; color: #eee; }
+    h1 { color: gold; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 10px 0; display: flex; align-items: center; gap: 10px; }
+    a { color: #0af; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .status {
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+    .ok { background: #0a0; color: #fff; }
+    .fail { background: #a00; color: #fff; }
+    .pending { background: #555; color: #fff; }
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      background: #0af;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    button:hover { background: #09c; }
+  </style>
+</head>
+<body>
+  <h1>Spectra Stream Test Page</h1>
+  <p>Quick links and live status checks:</p>
+  <ul>
+    <li><a href="/overlay" target="_blank">Overlay Page</a> <span id="overlayStatus" class="status pending">...</span></li>
+    <li><a href="/panel" target="_blank">Admin Panel</a> <span id="panelStatus" class="status pending">...</span></li>
+    <li><a href="/quests" target="_blank">Quest Demo Page</a> <span id="questsStatus" class="status pending">...</span></li>
+    <li><a href="/api/catalog" target="_blank">API – Catalog JSON</a> <span id="catalogStatus" class="status pending">...</span></li>
+    <li><a href="/api/health" target="_blank">API – Health Check</a> <span id="healthStatus" class="status pending">...</span></li>
+    <li><a href="/healthz" target="_blank">API – Healthz Check</a> <span id="healthzStatus" class="status pending">...</span></li>
+    <li>SignalR Hub <span id="hubStatus" class="status pending">...</span></li>
+  </ul>
+
+  <h2>Send Test Event</h2>
+  <button onclick="sendTestEvent()">Send QUEST_UPSERT</button>
+
+  <!-- SignalR client -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"
+          integrity="sha512-oRzy9exbBtB+9XzVXeMQSLbdn+thKwXg88ZGuG0VAdB00FQW1aMI5eJIFhmEDf8ED1pF/Me5uQ32Gnl5YJ+VtA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    let hubConnection;
+
+    async function checkUrl(url, elementId) {
+      try {
+        const res = await fetch(url, { method: "GET" });
+        if (res.ok) {
+          document.getElementById(elementId).textContent = "OK";
+          document.getElementById(elementId).className = "status ok";
+        } else {
+          document.getElementById(elementId).textContent = "FAIL";
+          document.getElementById(elementId).className = "status fail";
+        }
+      } catch {
+        document.getElementById(elementId).textContent = "FAIL";
+        document.getElementById(elementId).className = "status fail";
+      }
+    }
+
+    async function checkSignalR() {
+      try {
+        hubConnection = new signalR.HubConnectionBuilder()
+          .withUrl("/overlayhub")
+          .configureLogging(signalR.LogLevel.None)
+          .build();
+
+        await hubConnection.start();
+        document.getElementById("hubStatus").textContent = "OK";
+        document.getElementById("hubStatus").className = "status ok";
+      } catch (err) {
+        document.getElementById("hubStatus").textContent = "FAIL";
+        document.getElementById("hubStatus").className = "status fail";
+        console.error("SignalR check failed:", err);
+      }
+    }
+
+    async function sendTestEvent() {
+      if (!hubConnection || hubConnection.state !== "Connected") {
+        alert("Hub not connected!");
+        return;
+      }
+
+      try {
+        await hubConnection.invoke("BroadcastEvent", {
+          type: "QUEST_UPSERT",
+          ts: new Date().toISOString(),
+          id: "test-quest",
+          payload: {
+            questId: "demo-123",
+            name: "Test Quest",
+            description: "This is a test quest from the diagnostic page.",
+            amount: 5
+          }
+        });
+        alert("Test event sent! Check overlay in OBS.");
+      } catch (err) {
+        console.error("Error sending test event:", err);
+        alert("Failed to send test event.");
+      }
+    }
+
+    // Run checks
+    checkUrl("/overlay", "overlayStatus");
+    checkUrl("/panel", "panelStatus");
+    checkUrl("/quests", "questsStatus");
+    checkUrl("/api/catalog", "catalogStatus");
+    checkUrl("/api/health", "healthStatus");
+    checkUrl("/healthz", "healthzStatus");
+    checkSignalR();
+  </script>
+</body>
+</html>

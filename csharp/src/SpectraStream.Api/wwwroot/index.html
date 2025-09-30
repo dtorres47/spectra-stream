@@ -12,7 +12,7 @@
 <body>
 <!-- Background video (portrait 2:3); shows behind everything -->
 <video id="bg-video" autoplay loop muted playsinline>
-    <source src="assets/overlay-background.mp4" type="video/mp4"/>
+    <source src="content/overlay-background.mp4" type="video/mp4"/>
 </video>
 
 <!-- Foreground overlay -->
@@ -34,7 +34,7 @@
         <div class="quest-history">
             <!-- Active quests (clickable) -->
             <div class="quest-bubble active-quest">
-                <div class="quest-icon"><img src="assets/fred-wizard-avatar.png" alt="Lamina"/></div>
+                <div class="quest-icon"><img src="content/fred-wizard-avatar.png" alt="Lamina"/></div>
                 <div class="quest-text">
                     <h3 class="quest-title">Lamina</h3>
                     <p class="quest-desc">Use 5 laminas per call</p>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="quest-bubble active-quest">
-                <div class="quest-icon"><img src="assets/fred-wizard-avatar2.png" alt="Rune"/></div>
+                <div class="quest-icon"><img src="content/fred-wizard-avatar2.png" alt="Rune"/></div>
                 <div class="quest-text">
                     <h3 class="quest-title">Rune</h3>
                     <p class="quest-desc">Cast 3 runes</p>
@@ -52,7 +52,7 @@
             </div>
 
             <div class="quest-bubble active-quest">
-                <div class="quest-icon"><img src="assets/fred-wizard-avatar3.png" alt="Glyph"/></div>
+                <div class="quest-icon"><img src="content/fred-wizard-avatar3.png" alt="Glyph"/></div>
                 <div class="quest-text">
                     <h3 class="quest-title">Glyph</h3>
                     <p class="quest-desc">Collect 7 glyphs</p>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="quest-bubble active-quest">
-                <div class="quest-icon"><img src="assets/fred-wizard-avatar4.png" alt="Sigil"/></div>
+                <div class="quest-icon"><img src="content/fred-wizard-avatar4.png" alt="Sigil"/></div>
                 <div class="quest-text">
                     <h3 class="quest-title">Sigil</h3>
                     <p class="quest-desc">Activate 2 sigils</p>
@@ -71,7 +71,7 @@
 
             <!-- Completed (faded) -->
             <div class="quest-bubble completed">
-                <div class="quest-icon"><img src="assets/fred-wizard-avatar.png" alt="Shard"/></div>
+                <div class="quest-icon"><img src="content/fred-wizard-avatar.png" alt="Shard"/></div>
                 <div class="quest-text">
                     <h3 class="quest-title">Shard</h3>
                     <p class="quest-desc">Shard 10 crystals</p>
@@ -79,7 +79,7 @@
                 <div class="quest-count">10/10</div>
             </div>
             <div class="quest-bubble completed">
-                <div class="quest-icon"><img src="assets/fred-wizard-avatar2.png" alt="Flame"/></div>
+                <div class="quest-icon"><img src="content/fred-wizard-avatar2.png" alt="Flame"/></div>
                 <div class="quest-text">
                     <h3 class="quest-title">Flame</h3>
                     <p class="quest-desc">Ignite 4 torches</p>
@@ -87,7 +87,7 @@
                 <div class="quest-count">4/4</div>
             </div>
             <div class="quest-bubble completed">
-                <div class="quest-icon"><img src="assets/fred-wizard-avatar3.png" alt="Crystal"/></div>
+                <div class="quest-icon"><img src="content/fred-wizard-avatar3.png" alt="Crystal"/></div>
                 <div class="quest-text">
                     <h3 class="quest-title">Crystal</h3>
                     <p class="quest-desc">Mine 6 crystals</p>
@@ -95,7 +95,7 @@
                 <div class="quest-count">6/6</div>
             </div>
             <div class="quest-bubble completed">
-                <div class="quest-icon"><img src="assets/fred-wizard-avatar4.png" alt="Scroll"/></div>
+                <div class="quest-icon"><img src="content/fred-wizard-avatar4.png" alt="Scroll"/></div>
                 <div class="quest-text">
                     <h3 class="quest-title">Scroll</h3>
                     <p class="quest-desc">Read 8 scrolls</p>
@@ -205,9 +205,9 @@
         }
 
         const popupVideos = [
-            'assets/quest-popup1.mp4',
-            'assets/quest-popup2.mp4',
-            'assets/quest-popup3.mp4'
+            'content/quest-popup1.mp4',
+            'content/quest-popup2.mp4',
+            'content/quest-popup3.mp4'
         ];
 
         document.querySelectorAll('.active-quest').forEach(el => {

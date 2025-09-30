@@ -453,11 +453,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GitHub\\spectra-stream\\csharp\\src\\SpectraStream.Api\\SpectraStream.Api.csproj",
+      "projectUniqueName": "V:\\Coding\\spectra-stream\\csharp\\src\\SpectraStream.Api\\SpectraStream.Api.csproj",
       "projectName": "SpectraStream.Api",
-      "projectPath": "C:\\GitHub\\spectra-stream\\csharp\\src\\SpectraStream.Api\\SpectraStream.Api.csproj",
+      "projectPath": "V:\\Coding\\spectra-stream\\csharp\\src\\SpectraStream.Api\\SpectraStream.Api.csproj",
       "packagesPath": "C:\\Users\\TCon47\\.nuget\\packages\\",
-      "outputPath": "C:\\GitHub\\spectra-stream\\csharp\\src\\SpectraStream.Api\\obj\\",
+      "outputPath": "V:\\Coding\\spectra-stream\\csharp\\src\\SpectraStream.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -490,7 +490,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -520,7 +520,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

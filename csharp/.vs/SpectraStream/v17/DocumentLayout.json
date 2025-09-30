@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\GitHub\\spectra-stream\\csharp\\",
+  "WorkspaceRootPath": "V:\\Coding\\spectra-stream\\csharp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E2308C74-E5CC-4F09-A533-E79DF967025B}|src\\SpectraStream.Api\\SpectraStream.Api.csproj|c:\\github\\spectra-stream\\csharp\\src\\spectrastream.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E2308C74-E5CC-4F09-A533-E79DF967025B}|src\\SpectraStream.Api\\SpectraStream.Api.csproj|v:\\coding\\spectra-stream\\csharp\\src\\spectrastream.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E2308C74-E5CC-4F09-A533-E79DF967025B}|src\\SpectraStream.Api\\SpectraStream.Api.csproj|solutionrelative:src\\spectrastream.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\GitHub\\spectra-stream\\csharp\\src\\SpectraStream.Api\\Program.cs",
+              "DocumentMoniker": "V:\\Coding\\spectra-stream\\csharp\\src\\SpectraStream.Api\\Program.cs",
               "RelativeDocumentMoniker": "src\\SpectraStream.Api\\Program.cs",
-              "ToolTip": "C:\\GitHub\\spectra-stream\\csharp\\src\\SpectraStream.Api\\Program.cs",
+              "ToolTip": "V:\\Coding\\spectra-stream\\csharp\\src\\SpectraStream.Api\\Program.cs",
               "RelativeToolTip": "src\\SpectraStream.Api\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAUwEoAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-29T04:13:17.173Z",
               "EditorCaption": ""
