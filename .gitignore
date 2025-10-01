@@ -15,6 +15,7 @@ go.work
 *.user
 *.userosscache
 *.sln.docstates
+*.vsidx
 
 # IDE & editor files
 .idea/
@@ -65,3 +66,4 @@ _ReSharper*/
 *.DotSettings.user
 
 
+*.vsidx

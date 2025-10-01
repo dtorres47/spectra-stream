@@ -56,12 +56,10 @@ app.MapGet("/overlay", async context =>
     );
 });
 
-app.MapGet("/panel", async context =>
+app.MapGet("/admin", async context =>
 {
     context.Response.ContentType = "text/html; charset=utf-8";
-    await context.Response.SendFileAsync(
-        Path.Combine(app.Environment.WebRootPath, "panel.html")
-    );
+    await context.Response.SendFileAsync(Path.Combine(app.Environment.WebRootPath, "admin.html"));
 });
 
 app.MapGet("/quests", async context =>

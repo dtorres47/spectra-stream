@@ -1,16 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Quest Donations</title>
-  <link rel="stylesheet" href="/css/overlay.css">
-  <link rel="stylesheet" href="/css/shared.css">
-  <link rel="stylesheet" href="/quests/styles.css">
-  <script src="/js/navbar.js"></script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Quests Page</title>
+
+  <!-- Pixel font -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="quests.css"/>
 </head>
 <body>
-  <h1>Choose a Quest to Support</h1>
-  <div class="quest-grid" id="questGrid"></div>
-  <script src="/quests/quests.js"></script>
+  <!-- Background video -->
+  <video id="bg-video" autoplay loop muted playsinline>
+    <source src="../content/fred_herbert_knight.mp4" type="video/mp4"/>
+  </video>
+
+  <!-- Foreground container -->
+  <div class="overlay-container">
+    <header>
+      <strong>Quests</strong>
+      <button class="secondary" id="refresh">Refresh</button>
+    </header>
+
+    <main>
+      <section class="card">
+        <h3>Available Quests</h3>
+        <div id="questsList" class="list"><div class="item"><em>Loading…</em></div></div>
+      </section>
+
+      <section class="card">
+        <h3>Active Quests</h3>
+        <div id="activeList" class="list"><div class="item"><em>None yet</em></div></div>
+      </section>
+
+      <section class="card">
+        <h3>Completed Quests</h3>
+        <div id="completedList" class="list"><div class="item"><em>None yet</em></div></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="quests.js"></script>
 </body>
 </html>

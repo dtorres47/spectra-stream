@@ -1,0 +1,94 @@
+:root { color-scheme: dark; }
+
+html, body {
+    margin: 0;
+    font-family: 'Press Start 2P', monospace;
+    background: #1f1f1f;
+    color: #eee;
+}
+
+header {
+    padding: 16px 20px;
+    border-bottom: 3px solid #444;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    background: rgba(30,30,30,0.7);
+    box-shadow: 2px 2px 0 #000;
+}
+
+main {
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 16px;
+}
+
+/* Make each card look like a quest bubble */
+.card {
+    background: rgba(42,42,42,0.6);
+    border: 3px solid #444;
+    padding: 12px;
+    box-shadow: 2px 2px 0 #000;
+    font-size: 12px;
+}
+
+.row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+label { font-size: 10px; color: #ccc; }
+
+input, select {
+    background: #111;
+    color: #fff;
+    border: 2px solid #444;
+    padding: 6px 8px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    image-rendering: pixelated;
+}
+
+button {
+    background: #444;
+    color: #fff;
+    border: 2px solid #000;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    box-shadow: 2px 2px 0 #000;
+}
+
+button.secondary { background: #666; color: #fff; }
+
+h3 {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    color: #eee;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item {
+    background: rgba(30,30,30,0.7);
+    border: 2px solid #444;
+    padding: 8px;
+    font-size: 10px;
+    box-shadow: 1px 1px 0 #000;
+}
+
+small.mono {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    color: #aaa;
+}
+
+.btns { display: flex; gap: 8px; }
