@@ -24,5 +24,19 @@ namespace SpectraStream.Api.Controllers
             await _service.AppendDonationAsync(donation);
             return NoContent();
         }
+
+        [HttpGet("specialstring")]
+        public async Task<IActionResult> GetSpecialString()
+        {
+            var special = await _service.GetSpecialStringAsync();
+            return Ok(new { specialString = special ?? "none found" });
+        }
+
+        [HttpGet("quest-code")]
+        public async Task<IActionResult> GetQuestCode()
+        {
+            var code = await _service.LookupQuestCodeAsync();
+            return Ok(new { specialString = code ?? "none found" });
+        }
     }
 }

@@ -67,3 +67,102 @@ _ReSharper*/
 
 
 *.vsidx
+
+
+# ==========================
+# Visual Studio ignores
+# ==========================
+.vs/
+*.vsidx
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+[Ll]ogs/
+x64/
+x86/
+[Aa]rtifacts/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Test results
+[Tt]est[Rr]esults/
+*.VisualState.xml
+*.vsp
+*.vspscc
+*.psess
+*.pidb
+*.svclog
+*.scc
+
+# Rider / ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+
+# Others
+*.cache
+*.dbmdl
+*.bak
+*.log
+
+# ==========================
+# Go ignores
+# ==========================
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go workspace file
+go.work
+
+# Go vendor
+/vendor/
+
+# ==========================
+# Angular / Node.js ignores
+# ==========================
+# dependencies
+/node_modules/
+/bower_components/
+
+# production
+/dist/
+/build/
+/tmp/
+
+# misc
+/.angular/cache/
+.npm/
+.eslintcache
+
+# IDE/editor
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# environment files
+*.env
+*.local
+

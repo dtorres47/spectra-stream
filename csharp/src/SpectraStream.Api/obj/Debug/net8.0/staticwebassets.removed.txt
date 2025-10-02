@@ -1,1 +1,0 @@
-V:\Coding\spectra-stream\csharp\src\SpectraStream.Api\wwwroot\quests\styles.css

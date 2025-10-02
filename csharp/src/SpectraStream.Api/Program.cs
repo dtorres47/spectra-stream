@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SpectraStream.Api.Clients;
 using SpectraStream.Api.Hubs;
 using SpectraStream.Api.Services;
 
@@ -11,7 +12,16 @@ builder.Services.AddControllers();
 builder.Services.AddSignalR();
 
 // Domain services
-builder.Services.AddSingleton<DonationService>();
+
+// Register typed HttpClient for Streamlabs
+builder.Services.AddHttpClient<IStreamlabsClient, StreamlabsClient>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:3000/mock/streamlabs/");
+});
+
+// Register service layer
+builder.Services.AddScoped<DonationService>();
+builder.Services.AddHttpClient<DonationService>();
 builder.Services.AddSingleton<CatalogService>();
 builder.Services.AddSingleton<StateService>();
 builder.Services.AddSingleton<RequestService>();
