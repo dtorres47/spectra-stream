@@ -9,8 +9,12 @@ go.work
 # vendor/   # uncomment if you ever vendor deps
 
 # Visual Studio solution & user files
-/csharp/src/SpectraStream.Api/bin/
-/csharp/src/SpectraStream.Api/obj/
+.vs/
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+**/.vs/
 *.suo
 *.user
 *.userosscache
@@ -42,8 +46,8 @@ appsettings.Development.json
 !/content/audio/.keep
 
 # Ignore media files in wwwroot/content but keep folder structure
-/csharp/src/SpectraStream.Api/wwwroot/content/*
-!/csharp/src/SpectraStream.Api/wwwroot/content/.keep
+**/wwwroot/content/*
+!**/wwwroot/content/.keep
 
 [TestResults]/
 
@@ -165,4 +169,5 @@ go.work
 # environment files
 *.env
 *.local
+
 
