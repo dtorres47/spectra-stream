@@ -15,11 +15,11 @@ namespace SpectraStream.Api.Hubs
         // Called when a client disconnects
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            // Clean up connection tracking here if needed
+            // Clean up connection if needed
             await base.OnDisconnectedAsync(exception);
         }
 
-        // Example method: broadcast a message to all overlay clients
+        // Test: broadcast a message to all overlay clients
         public async Task SendEvent(string type, object payload)
         {
             await Clients.All.SendAsync("ReceiveEvent", new

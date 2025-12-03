@@ -66,6 +66,14 @@ app.MapGet("/overlay", async context =>
     );
 });
 
+app.MapGet("/overlay-400x600", async context =>
+{
+    context.Response.ContentType = "text/html; charset=utf-8";
+    await context.Response.SendFileAsync(
+        Path.Combine(app.Environment.WebRootPath, "index-400x600.html")
+    );
+});
+
 app.MapGet("/admin", async context =>
 {
     context.Response.ContentType = "text/html; charset=utf-8";

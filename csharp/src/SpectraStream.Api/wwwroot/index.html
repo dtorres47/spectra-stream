@@ -1,227 +1,121 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Stream Overlay</title>
-
-    <!-- Pixel font -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/overlay.css"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stream Overlay 400x600</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/overlay-400x600.css" />
 </head>
 <body>
-<!-- Background video (portrait 2:3); shows behind everything -->
-<video id="bg-video" autoplay loop muted playsinline>
-    <source src="content/overlay-background.mp4" type="video/mp4"/>
-</video>
+    <div class="overlay-container">
+        <!-- Background video only -->
+        <video id="animation-video"
+               class="background-video"
+               autoplay
+               muted
+               loop
+               playsinline
+               preload="auto">
+            <!-- TODO: adjust the src path if needed -->
+            <source src="content/overlay-400x600_background.mp4" type="video/mp4" />
+        </video>
 
-<!-- Foreground overlay -->
-<div class="overlay-container">
-    <!-- Popup overlay: darken + centered popup video + gold message -->
-    <div id="animation-overlay">
-        <video id="animation-video" playsinline preload="metadata"></video>
+        <!-- Scrollable quest list -->
+        <div class="quest-list">
+            <div class="quest-list-inner">
+                <!-- Sample quests: replace text with your new quest copy -->
 
-        <!-- ✅ Make sure this exists so JS doesn't throw -->
-        <div id="quest-popup-message">
-            <div class="quest-popup-box">
-                <h2 id="quest-popup-title">New Quest Appeared!</h2>
+                <div class="quest-item active-quest">
+                    <div class="quest-title">S3x Change</div>
+                    <div class="quest-desc">
+                        Successfully misgender a man or woman!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">Call for Backup</div>
+                    <div class="quest-desc">
+                        Introduce another soundboard on the same call!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">Instant Aggro</div>
+                    <div class="quest-desc">
+                        Be extremely confrontational from the first second!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">Pizza Time</div>
+                    <div class="quest-desc">
+                        Successfully order a pizza with Fred!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">Confession</div>
+                    <div class="quest-desc">
+                        Call back a victim and confess to pranking them!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">Baby GOAT</div>
+                    <div class="quest-desc">
+                        Give someone a light GOATing!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">Gender Questioning</div>
+                    <div class="quest-desc">
+                        Have Constable Arnold question the suspect's gender identity!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">Whistle Test</div>
+                    <div class="quest-desc">
+                        Play Fred's whistle!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">Whistle Test</div>
+                    <div class="quest-desc">
+                        Play Fred's whistle!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">Tropical Delight</div>
+                    <div class="quest-desc">
+                        Play the StayPineapple hold music!
+                    </div>
+                </div>
+
+                <div class="quest-item active-quest">
+                    <div class="quest-title">X-TREME PINEGOATWHISTLE REDUX</div>
+                    <div class="quest-desc">
+                        GOAT noises, StayPineapple music, and Fred's whistle play at the sane time!
+                    </div>
+                </div>
+
+                <!-- Add more quests here -->
             </div>
         </div>
+
+        <!-- Stats bar at the bottom -->
+        <!--<div class="quest-stats">
+            <div class="stats-item">Active: 3</div>
+            <div class="stats-item">Completed: 0</div>
+            <div class="stats-item">Total: 3</div>
+            <div class="stats-item">XP: 115</div>
+        </div>-->
     </div>
 
-    <!-- Scrollable quests -->
-    <div class="quest-scroll">
-        <div class="quest-history">
-            <!-- Active quests (clickable) -->
-            <div class="quest-bubble active-quest">
-                <div class="quest-icon"><img src="content/fred-wizard-avatar.png" alt="Lamina"/></div>
-                <div class="quest-text">
-                    <h3 class="quest-title">Lamina</h3>
-                    <p class="quest-desc">Use 5 laminas per call</p>
-                </div>
-                <div class="quest-count">1/3</div>
-            </div>
-
-            <div class="quest-bubble active-quest">
-                <div class="quest-icon"><img src="content/fred-wizard-avatar2.png" alt="Rune"/></div>
-                <div class="quest-text">
-                    <h3 class="quest-title">Rune</h3>
-                    <p class="quest-desc">Cast 3 runes</p>
-                </div>
-                <div class="quest-count">2/3</div>
-            </div>
-
-            <div class="quest-bubble active-quest">
-                <div class="quest-icon"><img src="content/fred-wizard-avatar3.png" alt="Glyph"/></div>
-                <div class="quest-text">
-                    <h3 class="quest-title">Glyph</h3>
-                    <p class="quest-desc">Collect 7 glyphs</p>
-                </div>
-                <div class="quest-count">4/7</div>
-            </div>
-
-            <div class="quest-bubble active-quest">
-                <div class="quest-icon"><img src="content/fred-wizard-avatar4.png" alt="Sigil"/></div>
-                <div class="quest-text">
-                    <h3 class="quest-title">Sigil</h3>
-                    <p class="quest-desc">Activate 2 sigils</p>
-                </div>
-                <div class="quest-count">1/2</div>
-            </div>
-
-            <!-- Completed (faded) -->
-            <div class="quest-bubble completed">
-                <div class="quest-icon"><img src="content/fred-wizard-avatar.png" alt="Shard"/></div>
-                <div class="quest-text">
-                    <h3 class="quest-title">Shard</h3>
-                    <p class="quest-desc">Shard 10 crystals</p>
-                </div>
-                <div class="quest-count">10/10</div>
-            </div>
-            <div class="quest-bubble completed">
-                <div class="quest-icon"><img src="content/fred-wizard-avatar2.png" alt="Flame"/></div>
-                <div class="quest-text">
-                    <h3 class="quest-title">Flame</h3>
-                    <p class="quest-desc">Ignite 4 torches</p>
-                </div>
-                <div class="quest-count">4/4</div>
-            </div>
-            <div class="quest-bubble completed">
-                <div class="quest-icon"><img src="content/fred-wizard-avatar3.png" alt="Crystal"/></div>
-                <div class="quest-text">
-                    <h3 class="quest-title">Crystal</h3>
-                    <p class="quest-desc">Mine 6 crystals</p>
-                </div>
-                <div class="quest-count">6/6</div>
-            </div>
-            <div class="quest-bubble completed">
-                <div class="quest-icon"><img src="content/fred-wizard-avatar4.png" alt="Scroll"/></div>
-                <div class="quest-text">
-                    <h3 class="quest-title">Scroll</h3>
-                    <p class="quest-desc">Read 8 scrolls</p>
-                </div>
-                <div class="quest-count">8/8</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Stats bar -->
-    <div class="quest-stats">
-        <div class="stats-item">Active: 4</div>
-        <div class="stats-item">Completed: 4</div>
-        <div class="stats-item">Total: 8</div>
-        <div class="stats-item">XP: 360</div>
-        <div class="stats-item">Donations: 18</div>
-    </div>
-</div>
-
-<script>
-    (() => {
-        const overlay   = document.getElementById('animation-overlay');
-        const video     = document.getElementById('animation-video');
-        const message   = document.getElementById('quest-popup-message');
-        const titleEl   = document.getElementById('quest-popup-title');
-
-        let animating    = false;
-        let messageTimer = null;
-        let fadeTimer    = null;
-
-        // stable browser-friendly attrs
-        video.setAttribute('muted', '');
-        video.setAttribute('playsinline', '');
-        video.removeAttribute('controls');
-
-        function clearMessageTimers() {
-            if (messageTimer) { clearTimeout(messageTimer); messageTimer = null; }
-            if (fadeTimer)    { clearTimeout(fadeTimer);    fadeTimer = null; }
-        }
-
-        function resetMessageClasses() {
-            // fully reset classes so transitions can replay
-            message.classList.remove('show', 'fade-out');
-            // force reflow so the next .show transition always triggers
-            // eslint-disable-next-line no-unused-expressions
-            void message.offsetWidth;
-        }
-
-        function showMessage(questName) {
-            titleEl.textContent = `New Quest: ${questName}`;
-            resetMessageClasses();
-            message.classList.add('show');
-
-            // keep visible for 8 seconds
-            clearMessageTimers();
-            messageTimer = setTimeout(() => {
-                message.classList.add('fade-out');
-                // remove classes after fade ( ~300–350ms )
-                fadeTimer = setTimeout(() => {
-                    resetMessageClasses();
-                }, 350);
-            }, 8000);
-        }
-
-        function hideMessageNow() {
-            clearMessageTimers();
-            message.classList.add('fade-out');
-            fadeTimer = setTimeout(() => {
-                resetMessageClasses();
-            }, 350);
-        }
-
-        function cleanupOverlay() {
-            hideMessageNow();
-            overlay.classList.remove('active');
-
-            // stop & release video
-            video.pause();
-            video.currentTime = 0;
-            video.removeAttribute('src'); // detach to release buffer on some browsers
-            video.load();
-
-            animating = false;
-            // also remove any lingering handlers
-            video.onended = null;
-        }
-
-        function startOverlay(src, questName) {
-            animating = true;
-            overlay.classList.add('active');
-
-            showMessage(questName);
-
-            // prep & play the chosen video
-            video.pause();
-            video.currentTime = 0;
-            video.src = src;
-
-            // play immediately; click is a user gesture so audio can be allowed if unmuted
-            video.play().catch(() => { /* ignore play promise errors */ });
-
-            // end -> cleanup
-            video.onended = cleanupOverlay;
-
-            // double safety: hard stop after 30s in case 'ended' never fires
-            setTimeout(() => { if (animating) cleanupOverlay(); }, 30000);
-        }
-
-        const popupVideos = [
-            'content/quest-popup1.mp4',
-            'content/quest-popup2.mp4',
-            'content/quest-popup3.mp4'
-        ];
-
-        document.querySelectorAll('.active-quest').forEach(el => {
-            el.addEventListener('click', () => {
-                if (animating) return;
-                const questName = el.querySelector('.quest-title')?.textContent?.trim() || 'Quest';
-                const src = popupVideos[Math.floor(Math.random() * popupVideos.length)];
-                startOverlay(src, questName);
-            });
-        });
-    })();
-</script>
-
-
-
+    <script src="js/overlay-400x600.js"></script>
 </body>
 </html>

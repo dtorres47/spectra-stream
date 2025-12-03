@@ -1,91 +1,39 @@
-# Go build artifacts
-*.exe
-*.dll
-*.so
-*.dylib
-*.test
-*.out
-go.work
-# vendor/   # uncomment if you ever vendor deps
+# ==========================
+# OS files
+# ==========================
+.DS_Store
+Thumbs.db
 
-# Visual Studio solution & user files
+# ==========================
+# IDE / Editor
+# ==========================
 .vs/
+**/.vs/
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vsidx
+_ReSharper*/
+*.DotSettings.user
+
+# ==========================
+# Logs & local data
+# ==========================
+*.log
+*.db
+*.dbmdl
+*.bak
+
+# ==========================
+# Build output (all languages)
+# ==========================
 [Bb]in/
 [Oo]bj/
 **/bin/
 **/obj/
-**/.vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-*.vsidx
-
-# IDE & editor files
-.idea/
-.vscode/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Logs & data
-*.log
-*.db
-
-# Local secrets
-config.json
-appsettings.Development.json
-
-# Ignore media files in shared content folder
-/content/videos/*
-/content/images/*
-/content/audio/*
-!/content/videos/.keep
-!/content/images/.keep
-!/content/audio/.keep
-
-# Ignore media files in wwwroot/content but keep folder structure
-**/wwwroot/content/*
-!**/wwwroot/content/.keep
-
-[TestResults]/
-
-# NuGet packages
-*.nupkg
-*.snupkg
-packages/
-project.lock.json
-project.fragment.lock.json
-
-# Build results
-x64/
-x86/
-[Aa]rtifacts/
-[Ll]og/
-[Ll]ogs/
-
-# Rider / ReSharper
-_ReSharper*/
-*.DotSettings.user
-
-
-*.vsidx
-
-
-# ==========================
-# Visual Studio ignores
-# ==========================
-.vs/
-*.vsidx
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-# Build results
-bin/
-obj/
 [Bb]uild/
 [Ll]og/
 [Ll]ogs/
@@ -93,40 +41,34 @@ x64/
 x86/
 [Aa]rtifacts/
 
-# NuGet
+# ==========================
+# Test results
+# ==========================
+[Tt]est[Rr]esults/
+*.VisualState.xml
+*.vsp
+*.vspx
+*.psess
+*.pidb
+*.svclog
+*.scc
+
+# ==========================
+# NuGet / .NET
+# ==========================
 *.nupkg
 *.snupkg
 packages/
 project.lock.json
 project.fragment.lock.json
 
-# Test results
-[Tt]est[Rr]esults/
-*.VisualState.xml
-*.vsp
-*.vspscc
-*.psess
-*.pidb
-*.svclog
-*.scc
-
-# Rider / ReSharper
-_ReSharper*/
-*.DotSettings.user
-
-# Visual Studio profiler
+# Visual Studio profiler (extra safety, some overlap above)
 *.psess
 *.vsp
 *.vspx
 
-# Others
-*.cache
-*.dbmdl
-*.bak
-*.log
-
 # ==========================
-# Go ignores
+# Go
 # ==========================
 # Binaries for programs and plugins
 *.exe
@@ -144,13 +86,13 @@ go.work
 /vendor/
 
 # ==========================
-# Angular / Node.js ignores
+# Angular / Node.js
 # ==========================
 # dependencies
 /node_modules/
 /bower_components/
 
-# production
+# production / builds
 /dist/
 /build/
 /tmp/
@@ -160,14 +102,37 @@ go.work
 .npm/
 .eslintcache
 
-# IDE/editor
-.idea/
-.vscode/
-*.sublime-workspace
-*.sublime-project
-
 # environment files
 *.env
 *.local
 
+# ==========================
+# Local secrets / app config
+# (keep these local, not in repo)
+# ==========================
+config.json
+appsettings.Development.json
 
+# ==========================
+# App media content
+# ==========================
+# Ignore large media in shared content folder, keep .keep
+/content/videos/*
+/content/images/*
+/content/audio/*
+!/content/videos/.keep
+!/content/images/.keep
+!/content/audio/.keep
+
+# Ignore media files in wwwroot/content but keep folder structure
+**/wwwroot/content/*
+!**/wwwroot/content/.keep
+
+# ==========================
+# Misc tool artifacts
+# ==========================
+*.cache
+*.v2
+
+# Other files
+csharp/src/SpectraStream.Api/obj/Debug/net8.0/staticwebassets.removed.txt
