@@ -1,12 +1,10 @@
 :root { color-scheme: dark; }
-
 html, body {
     margin: 0;
     font-family: system-ui, sans-serif;
     background: #0f1115;
     color: #e6e6e6;
 }
-
 header {
     padding: 16px 20px;
     border-bottom: 1px solid #202632;
@@ -16,119 +14,62 @@ header {
     flex-wrap: wrap;
     background: #0a0c10;
 }
-
 header strong {
     font-size: 16px;
     color: #fff;
 }
-
 main {
-    padding: 20px;
+    padding: 16px 20px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
     gap: 16px;
 }
-
 .card {
     background: #131824;
     border: 1px solid #202632;
-    border-radius: 12px;
-    padding: 16px;
+    border-radius: 14px;
+    padding: 14px;
 }
-
 .row {
     display: flex;
     gap: 8px;
     align-items: center;
     flex-wrap: wrap;
 }
-
-label {
-    font-size: 12px;
-    color: #aab;
-}
-
+label { font-size: 12px; color: #aab; }
 input, select {
     background: #0e1320;
     color: #e6e6e6;
     border: 1px solid #2a3242;
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 8px 10px;
-    font-size: 13px;
 }
-
-input:focus, select:focus {
-    outline: none;
-    border-color: #2b6fef;
-}
-
 button {
     background: #2b6fef;
     color: white;
     border: 0;
-    border-radius: 6px;
-    padding: 8px 14px;
-    font-size: 13px;
+    border-radius: 8px;
+    padding: 8px 12px;
     cursor: pointer;
-    transition: background 0.2s;
 }
-
-button:hover {
-    background: #3d7ef7;
-}
-
-button.secondary {
-    background: #384255;
-}
-
-button.secondary:hover {
-    background: #4a5568;
-}
-
-h3 {
-    margin: 0 0 12px 0;
-    font-size: 16px;
-    color: #fff;
-}
-
-h4 {
-    font-size: 14px;
-    color: #dfe6ff;
-}
-
+button.secondary { background: #384255; }
+h3 { margin: 0 0 10px 0; font-size: 16px; color: #dfe6ff; }
 .list {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
-
 .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #0e1320;
-    border: 1px solid #2a3242;
-    border-radius: 8px;
-    padding: 12px;
+    background: #0f1422;
+    border: 1px solid #242c3d;
+    border-radius: 10px;
+    padding: 10px;
 }
-
-.item em {
-    color: #6b7280;
-    font-style: italic;
-}
-
 small.mono {
     font-family: ui-monospace, Menlo, Consolas, monospace;
     color: #9ab;
-    font-size: 11px;
 }
-
-.btns {
-    display: flex;
-    gap: 6px;
-}
-
-.btns button {
-    padding: 6px 10px;
-    font-size: 11px;
-}
+.btns { display: flex; gap: 8px; }

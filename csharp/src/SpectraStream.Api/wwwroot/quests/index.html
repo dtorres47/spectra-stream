@@ -3,43 +3,52 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Quests Page</title>
-
-  <!-- Pixel font -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="quests.css"/>
+  <title>Quests</title>
+  <link rel="stylesheet" href="/css/shared.css"/>
+  <link rel="stylesheet" href="/css/quests.css"/>
 </head>
 <body>
-  <!-- Background video -->
-  <video id="bg-video" autoplay loop muted playsinline>
-    <source src="../content/fred_herbert_knight.mp4" type="video/mp4"/>
-  </video>
+  <nav class="admin-nav">
+    <span class="nav-brand">SpectraStream</span>
+    <a href="/admin.html">Admin</a>
+    <a href="/panel.html">Panel</a>
+    <a href="/quests/" class="active">Quests</a>
+    <a href="/donate/">Donate Page</a>
+    <span class="nav-spacer"></span>
+    <a href="/index.html" target="_blank" class="nav-external">Overlay ↗</a>
+  </nav>
 
-  <!-- Foreground container -->
-  <div class="overlay-container">
-    <header>
-      <strong>Quests</strong>
-      <button class="secondary" id="refresh">Refresh</button>
-    </header>
+  <header>
+    <strong>Quests</strong>
+    <button id="refresh" class="secondary">Refresh</button>
+  </header>
 
-    <main>
-      <section class="card">
-        <h3>Available Quests</h3>
-        <div id="questsList" class="list"><div class="item"><em>Loading…</em></div></div>
-      </section>
+  <main>
+    <section class="card">
+      <h3>Available Quests</h3>
+      <p class="desc">Quests from the catalog that viewers can activate.</p>
+      <div id="questsList" class="list">
+        <div class="item"><em>Loading…</em></div>
+      </div>
+    </section>
 
-      <section class="card">
-        <h3>Active Quests</h3>
-        <div id="activeList" class="list"><div class="item"><em>None yet</em></div></div>
-      </section>
+    <section class="card">
+      <h3>Active Quests</h3>
+      <p class="desc">Quests currently in progress on stream.</p>
+      <div id="activeList" class="list">
+        <div class="item"><em>None yet</em></div>
+      </div>
+    </section>
 
-      <section class="card">
-        <h3>Completed Quests</h3>
-        <div id="completedList" class="list"><div class="item"><em>None yet</em></div></div>
-      </section>
-    </main>
-  </div>
+    <section class="card">
+      <h3>Completed Quests</h3>
+      <p class="desc">Quests that have been finished.</p>
+      <div id="completedList" class="list">
+        <div class="item"><em>None yet</em></div>
+      </div>
+    </section>
+  </main>
 
-  <script src="quests.js"></script>
+  <script src="/js/quests.js"></script>
 </body>
 </html>

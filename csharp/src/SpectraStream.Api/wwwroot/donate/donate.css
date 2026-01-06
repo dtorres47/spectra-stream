@@ -1,0 +1,144 @@
+:root { color-scheme: dark; }
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #0f1115;
+    color: #e6e6e6;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.card {
+    background: #131824;
+    border: 1px solid #202632;
+    border-radius: 16px;
+    padding: 32px;
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+}
+
+.subtitle {
+    margin: 0 0 24px 0;
+    font-size: 14px;
+    color: #9ab;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label {
+    font-size: 13px;
+    color: #aab;
+}
+
+input, textarea {
+    background: #0e1320;
+    color: #e6e6e6;
+    border: 1px solid #2a3242;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #2b6fef;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+button {
+    background: #2b6fef;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+}
+
+button:hover {
+    background: #3d7ef7;
+}
+
+button:disabled {
+    background: #384255;
+    cursor: not-allowed;
+}
+
+.status {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.status.success {
+    background: #1a3d2e;
+    color: #4ade80;
+    border: 1px solid #166534;
+}
+
+.status.error {
+    background: #3d1a1a;
+    color: #f87171;
+    border: 1px solid #7f1d1d;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    margin-top: 24px;
+    text-align: center;
+}
+
+footer a {
+    color: #9ab;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+footer a:hover {
+    color: #2b6fef;
+}

@@ -5,6 +5,7 @@ html, body {
     font-family: system-ui, sans-serif;
     background: #0f1115;
     color: #e6e6e6;
+    min-height: 100vh;
 }
 
 header {
@@ -33,7 +34,19 @@ main {
     background: #131824;
     border: 1px solid #202632;
     border-radius: 12px;
-    padding: 16px;
+    padding: 20px;
+}
+
+h3 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+.desc {
+    margin: 0 0 16px 0;
+    font-size: 13px;
+    color: #9ab;
 }
 
 .row {
@@ -85,21 +98,26 @@ button.secondary:hover {
     background: #4a5568;
 }
 
-h3 {
-    margin: 0 0 12px 0;
-    font-size: 16px;
-    color: #fff;
+button.success {
+    background: #166534;
 }
 
-h4 {
-    font-size: 14px;
-    color: #dfe6ff;
+button.success:hover {
+    background: #15803d;
+}
+
+button.danger {
+    background: #7f1d1d;
+}
+
+button.danger:hover {
+    background: #991b1b;
 }
 
 .list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .item {
@@ -109,7 +127,45 @@ h4 {
     background: #0e1320;
     border: 1px solid #2a3242;
     border-radius: 8px;
-    padding: 12px;
+    padding: 12px 14px;
+}
+
+.item .info {
+    flex: 1;
+}
+
+.item .name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #e6e6e6;
+    margin-bottom: 4px;
+}
+
+.item .meta {
+    font-size: 12px;
+    color: #9ab;
+}
+
+.item .price {
+    color: #4ade80;
+    font-weight: 600;
+}
+
+.item .progress {
+    font-size: 12px;
+    color: #60a5fa;
+    margin-left: 12px;
+}
+
+.item .btns {
+    display: flex;
+    gap: 6px;
+    margin-left: 12px;
+}
+
+.item .btns button {
+    padding: 6px 10px;
+    font-size: 11px;
 }
 
 .item em {
@@ -117,18 +173,13 @@ h4 {
     font-style: italic;
 }
 
-small.mono {
-    font-family: ui-monospace, Menlo, Consolas, monospace;
+/* Completed quest styling */
+.item.completed {
+    opacity: 0.7;
+    border-color: #166534;
+}
+
+.item.completed .name {
+    text-decoration: line-through;
     color: #9ab;
-    font-size: 11px;
-}
-
-.btns {
-    display: flex;
-    gap: 6px;
-}
-
-.btns button {
-    padding: 6px 10px;
-    font-size: 11px;
 }
