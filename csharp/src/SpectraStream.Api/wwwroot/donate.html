@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support the Stream</title>
+    <link rel="stylesheet" href="/css/donate.css" />
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Support the Stream</h1>
+            <p class="subtitle">Pick an ability or quest, then fill out your info below</p>
+        </header>
+
+        <!-- Abilities Section -->
+        <section class="card">
+            <h2>⚡ Abilities</h2>
+            <p class="desc">Instant effects! Sound plays on stream, then your name and message appear with TTS.</p>
+            <div id="abilities-grid" class="option-grid">
+                <div class="loading">Loading abilities...</div>
+            </div>
+        </section>
+
+        <!-- Quests Section -->
+        <section class="card">
+            <h2>🎯 Quests</h2>
+            <p class="desc">Give the streamer a challenge to complete!</p>
+            <div id="quests-grid" class="option-grid">
+                <div class="loading">Loading quests...</div>
+            </div>
+        </section>
+
+        <!-- Donor Info -->
+        <section class="card donor-card">
+            <h2>Your Info</h2>
+            <div class="field">
+                <label for="donor">Your Name</label>
+                <input type="text" id="donor" placeholder="Anonymous" />
+            </div>
+            <div class="field">
+                <label for="amount">Amount (USD)</label>
+                <input type="number" id="amount" min="1" step="0.01" value="5.00" />
+            </div>
+            <div class="field" id="message-field">
+                <label for="message">Message <span class="hint">(TTS reads this for abilities)</span></label>
+                <textarea id="message" rows="2" placeholder="Say something nice..."></textarea>
+            </div>
+
+            <div class="selection-summary" id="selection-summary">
+                <span class="selection-label">Selected:</span>
+                <span class="selection-name" id="selection-name">None</span>
+                <span class="selection-price" id="selection-price"></span>
+            </div>
+
+            <button id="submit-btn" class="submit-btn" disabled>Select an ability or quest</button>
+        </section>
+
+        <!-- Status message -->
+        <div id="status" class="status hidden"></div>
+
+        <footer>
+            <p>Powered by SpectraStream</p>
+        </footer>
+    </main>
+
+    <script src="/js/donate.js"></script>
+</body>
+</html>

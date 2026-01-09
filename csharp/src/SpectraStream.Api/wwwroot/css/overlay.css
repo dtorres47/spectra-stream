@@ -1,177 +1,227 @@
-:root {
-    --quest-height: 140px;
-    --quest-gap: 16px;
+/* OBS Overlay - retro game aesthetic */
+html,
+body {
+    width: 400px;
+    height: 600px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
+    font-family: 'Press Start 2P', monospace;
+    color: #00ff00;
 }
 
-/* Full viewport & dark base */
-html, body {
-    margin: 0; padding: 0;
-    width: 100%; height: 100%;
-    background: #1f1f1f;
+* {
+    box-sizing: border-box;
+}
+
+.overlay-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    border: 2px solid #00ff00;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.background-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(1.10);
+    z-index: 0;
+    display: none; /* Hidden by default, show if video source is set */
+}
+
+.background-video[src] {
+    display: block;
+}
+
+/* Audio enable button */
+#audioGate {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    border-radius: 0;
+    padding: 8px 12px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    cursor: pointer;
+    z-index: 100;
+    text-shadow: 0 0 4px #00ff00;
+}
+
+#audioGate:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 10px #00ff00;
+}
+
+/* WebSocket status */
+#wsStatus {
+    position: absolute;
+    bottom: 45px;
+    left: 10px;
+    font-size: 6px;
+    color: rgba(0, 255, 0, 0.5);
+    z-index: 100;
+}
+
+/* Messages/toasts container */
+#messages {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 50;
+    max-height: 120px;
     overflow: hidden;
 }
 
-/* Background video — fit entire video, preserve 2:3, letterbox if needed */
-#bg-video {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;   /* <-- keeps whole 1080x1620 in view */
-    z-index: 0;
-    background: #1f1f1f;   /* fills the letterbox area */
+/* Individual toast */
+.toast {
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #00ff00;
+    padding: 8px 10px;
+    font-size: 7px;
+    line-height: 1.4;
+    animation: slideIn 0.3s ease, fadeOut 0.5s ease 5s forwards;
+    text-shadow: 0 0 4px #00ff00;
 }
 
-/* Foreground overlay above video */
-.overlay-container {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--quest-gap);
-    width: 100%;
-    height: 100%;
-    padding: 16px;
-    box-sizing: border-box;
-    font-family: 'Press Start 2P', monospace;
-    color: #eee;
-    background: transparent;
+@keyframes slideIn {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
-/* Click animation layer (darken + centered video) */
-#animation-overlay {
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Quest list container */
+.quest-list {
     position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.2s ease;
-    z-index: 10;
-    pointer-events: none;       /* ignore clicks when hidden */
-}
-#animation-overlay.active {
-    opacity: 1;
-    pointer-events: auto;       /* block clicks during animation */
+    top: 180px;
+    left: 10px;
+    right: 10px;
+    bottom: 50px;
+    z-index: 1;
+    overflow: hidden;
 }
 
-/* Popup animation video fills viewport, preserves aspect */
-#animation-video {
-    width: 100vw;
-    height: 100vh;
-    object-fit: contain;
-}
-
-/* Scroll area fills remaining space; shows scrollbar when >4 quests */
-.quest-scroll {
-    flex: 1 1 auto;
-    min-height: calc((var(--quest-height) * 4) + (var(--quest-gap) * 3));
+.quest-list-inner {
+    height: 100%;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #888 transparent;
+    padding-right: 4px;
 }
-.quest-scroll::-webkit-scrollbar { width: 8px; }
-.quest-scroll::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
-.quest-scroll::-webkit-scrollbar-track { background: transparent; }
 
-/* Vertical list of quest bubbles */
-.quest-history {
+.quest-list-inner::-webkit-scrollbar {
+    width: 6px;
+}
+
+.quest-list-inner::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.quest-list-inner::-webkit-scrollbar-thumb {
+    background: #00ff00;
+}
+
+/* Individual quest */
+.quest {
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(0, 255, 0, 0.55);
+    padding: 8px;
+    margin-bottom: 8px;
+    backdrop-filter: blur(2.5px) brightness(1);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.4);
     display: flex;
-    flex-direction: column;
-    gap: var(--quest-gap);
+    align-items: center;
+    gap: 8px;
 }
 
-/* Quest bubble */
-.quest-bubble {
-    display: flex; align-items: center;
-    height: var(--quest-height);
-    background: rgba(42,42,42,0.6);
-    border: 3px solid #444;
-    padding: 12px;
-    box-shadow: 2px 2px 0 #000;
-    cursor: pointer;
-}
-.quest-bubble.completed {
-    cursor: default;
-    opacity: 0.15;
-    background: transparent;
-    border-color: rgba(68,68,68,0.15);
-}
-
-/* Icon fills full height */
-.quest-icon {
-    flex: 0 0 var(--quest-height);
-    height: var(--quest-height);
-    margin-right: 16px;
-    border: 3px solid #444;
-    background: #111;
-    display: flex; align-items: center; justify-content: center;
-}
-.quest-icon img {
-    width: 100%; height: 100%;
-    object-fit: contain;
+.quest img {
+    width: 24px;
+    height: 24px;
     image-rendering: pixelated;
 }
 
-/* Text */
-.quest-text { flex: 1 1 auto; text-align: left; }
-.quest-title { margin: 0; font-size: 1.4rem; line-height: 1.1; }
-.quest-desc { margin: 6px 0 0; font-size: 1.1rem; opacity: 0.9; }
-
-/* Count on right */
-.quest-count {
-    flex: 0 0 70px; text-align: right;
-    font-size: 1.4rem; margin-left: 16px;
+.quest-title {
+    font-size: 8px;
+    text-shadow: 0 0 4px #00ff00, 0 0 8px #00ff00;
 }
 
-/* Stats bar pinned at bottom */
-.quest-stats {
-    flex: 0 0 calc(var(--quest-height) * 0.25);
-    display: flex; align-items: center; justify-content: space-around;
-    background: rgba(30,30,30,0.7);
-    border: 3px solid #444;
-    padding: 4px;
-    box-shadow: 2px 2px 0 #000;
-}
-.stats-item { font-size: 1.1rem; text-align: center; }
-
-/* Quest popup message */
-#quest-popup-message {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    z-index: 20;
-    text-align: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-#quest-popup-message.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-#quest-popup-message.fade-out {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-10px);
-}
-
-
-.quest-popup-box {
-    display: inline-block;
-    padding: 16px 24px;
-    background: rgba(30,30,30,0.9);
-    border: 4px solid gold;
-    box-shadow: 0 0 12px gold;
-    border-radius: 8px;
-    font-family: 'Press Start 2P', monospace;
+.quest-progress {
+    font-size: 7px;
     color: #ffd700;
-    font-size: 1.2rem;
-    text-shadow: 1px 1px 2px #000;
+    margin-left: auto;
 }
 
-/* Fade animation */
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translate(-50%, 20px); }
-    10% { opacity: 1; transform: translate(-50%, 0); }
-    80% { opacity: 1; }
-    100% { opacity: 0; transform: translate(-50%, -20px); }
+.quest.completed {
+    opacity: 0.6;
+    border-color: rgba(0, 255, 0, 0.3);
+}
+
+.quest.completed .quest-title {
+    text-decoration: line-through;
+}
+
+/* Requests container */
+#requests {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 40;
+}
+
+/* Individual request */
+.request {
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid #60a5fa;
+    padding: 6px 8px;
+    font-size: 7px;
+    color: #60a5fa;
+}
+
+/* Stats bar on the bottom */
+.quest-stats {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: space-around;
+    border-top: 2px solid #00ff00;
+    padding: 8px 0;
+    z-index: 2;
+    color: #00ff00;
+}
+
+.stats-item {
+    font-size: 7px;
+    text-shadow: 0 0 4px #00ff00;
 }

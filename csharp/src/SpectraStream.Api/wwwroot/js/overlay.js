@@ -4,6 +4,12 @@ const questList      = document.getElementById("quests");
 const requestsList   = document.getElementById("requests");
 const audioGateBtn   = document.getElementById("audioGate");
 const wsStatus       = document.getElementById("wsStatus");
+const video          = document.getElementById("animation-video");
+
+// stats elements
+const statActive     = document.getElementById("stat-active");
+const statCompleted  = document.getElementById("stat-completed");
+const statTotal      = document.getElementById("stat-total");
 
 // state
 const cooldown    = new Map();
@@ -11,6 +17,7 @@ const questElems  = new Map();
 const requestElems= new Map();
 const audCache    = new Map();
 let audioEnabled  = false;
+let completedCount = 0;
 
 // CONFIG & BRAND (loaded from /config/*.json)
 let QUESTS_CONFIG = {};
@@ -25,6 +32,23 @@ fetch('/config/brand.json')
     .then(r => r.json())
     .then(cfg => { BRAND = cfg; })
     .catch(console.warn);
+
+// Background video autoplay
+if (video) {
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('loop', '');
+    
+    function tryPlayVideo() {
+        video.play().catch(() => {});
+    }
+    
+    if (video.readyState >= 2) {
+        tryPlayVideo();
+    } else {
+        video.addEventListener('canplay', tryPlayVideo, { once: true });
+    }
+}
 
 // PANEL ↔ OVERLAY message bus
 const bc = new BroadcastChannel('overlay-controls');
@@ -50,14 +74,14 @@ bc.onmessage = ev => {
             const resetEl = questElems.get(msg.key);
             if (resetEl) {
                 resetEl.dataset.progress = 0;
-                renderQuest({ /* same mapping as above */ id: msg.key, /* … */ });
+                renderQuest({ id: msg.key, name: resetEl.dataset.name, icon_url: resetEl.dataset.icon, progress: 0, target: resetEl.dataset.target });
             }
             break;
         case 'COMPLETE':
             const compEl = questElems.get(msg.key);
             if (compEl) {
                 compEl.dataset.progress = compEl.dataset.target;
-                renderQuest({ /* … */ id: msg.key, /* … */ });
+                renderQuest({ id: msg.key, name: compEl.dataset.name, icon_url: compEl.dataset.icon, progress: compEl.dataset.target, target: compEl.dataset.target });
             }
             break;
     }
@@ -95,6 +119,8 @@ function toast(text) {
     d.className = "toast";
     d.textContent = text;
     msgs.appendChild(d);
+    // Remove after animation
+    setTimeout(() => d.remove(), 6000);
 }
 function beep(ms=200, freq=880) {
     try {
@@ -158,39 +184,67 @@ if ('speechSynthesis' in window) {
         speechSynthesis.onvoiceschanged = () => {};
 }
 
+// Update stats display
+function updateStats() {
+    const total = questElems.size;
+    let active = 0;
+    let completed = 0;
+    
+    questElems.forEach(el => {
+        const progress = Number(el.dataset.progress || 0);
+        const target = Number(el.dataset.target || 1);
+        if (progress >= target) {
+            completed++;
+        } else {
+            active++;
+        }
+    });
+    
+    if (statActive) statActive.textContent = active;
+    if (statCompleted) statCompleted.textContent = completed;
+    if (statTotal) statTotal.textContent = total;
+}
+
 // quests rendering
 function renderQuest(d) {
     const id = d.id; if (!id) return;
     let el = questElems.get(id);
 
-    el.dataset.name     = d.name;
-    el.dataset.icon     = d.icon_url;
-    el.dataset.target   = d.target;
-    el.dataset.progress = d.progress;
+    const progress = Number(d.progress||0);
+    const target = Math.max(1, Number(d.target||1));
+    const done = progress >= target;
 
-    const progress = Number(d.progress||0),
-        target   = Math.max(1, Number(d.target||1));
-    const label = `${d.name||"Quest"} — ${progress}/${target}`;
-    const html = d.icon_url
-        ? `<span style="display:inline-flex;align-items:center;gap:8px;">
-             <img src="${d.icon_url}" style="width:20px;height:20px;" />
-             <span>${label}</span>
-           </span>`
-        : `🗡️ ${label}`;
     if (!el) {
         el = document.createElement("div");
-        el.className = "quest"; el.dataset.id = id;
+        el.className = "quest";
+        el.dataset.id = id;
         questList.appendChild(el);
         questElems.set(id, el);
     }
+
+    el.dataset.name     = d.name || "Quest";
+    el.dataset.icon     = d.icon_url || "";
+    el.dataset.target   = target;
+    el.dataset.progress = progress;
+
+    // Build HTML with icon if available
+    let html = '';
+    if (d.icon_url) {
+        html += `<img src="${d.icon_url}" alt="" />`;
+    }
+    html += `<span class="quest-title">${d.name || "Quest"}</span>`;
+    html += `<span class="quest-progress">${progress}/${target}</span>`;
+    
     el.innerHTML = html;
-    const done = progress >= target;
-    el.style.opacity = done ? "0.75" : "1";
-    el.style.textDecoration = done ? "line-through" : "none";
+    el.className = done ? "quest completed" : "quest";
+    
+    updateStats();
 }
+
 function removeQuest(id) {
     const el = questElems.get(id);
     if (el) { el.remove(); questElems.delete(id); }
+    updateStats();
 }
 
 // requests rendering
@@ -198,7 +252,7 @@ function renderRequest(d) {
     const id = d.id; if (!id) return;
     let el = requestElems.get(id);
     const label = `${d.board||"(request)"}${d.note?" — "+d.note:""}`;
-    const phone = d.masked_phone ? ` <small style="color:#9f9">(${d.masked_phone})</small>` : "";
+    const phone = d.masked_phone ? ` (${d.masked_phone})` : "";
     const html  = `📞 ${label}${phone}`;
     if (!el) {
         el = document.createElement("div");
@@ -217,7 +271,7 @@ function removeRequest(id) {
 async function preloadSounds() {
     try {
         const data = await fetch('/api/catalog').then(r=>r.json());
-        const list = data.abilities||[];
+        const list = data.Abilities || data.abilities || [];
         let count = 0;
         list.forEach(a=>{
             if (!a.id || !a.sfx_url) return;
@@ -250,7 +304,7 @@ function connectWS() {
     ws.onopen = () => {
         retry = 0;
         wsStatus.textContent = "WS: connected";
-        toast("WebSocket open → " + wsUrl);
+        toast("Connected");
     };
 
     ws.onmessage = ev => {
@@ -311,7 +365,7 @@ function connectWS() {
     ws.onclose = () => {
         wsStatus.textContent = "WS: disconnected";
         const delay = Math.min(30000, 1000 * Math.pow(2, retry++));
-        wsStatus.textContent = `WS: reconnecting in ${Math.round(delay/1000)}s`;
+        wsStatus.textContent = `WS: reconnect ${Math.round(delay/1000)}s`;
         setTimeout(connectWS, delay);
     };
 

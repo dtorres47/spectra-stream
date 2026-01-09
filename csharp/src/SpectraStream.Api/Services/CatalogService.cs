@@ -37,6 +37,11 @@ namespace SpectraStream.Api.Services
             return _quests.TryGetValue(id, out var quest) ? quest : null;
         }
 
+        public Ability? GetAbility(string id)
+        {
+            return _abilities.TryGetValue(id, out var ability) ? ability : null;
+        }
+
         private class CatalogFile
         {
             public List<Ability> Abilities { get; set; } = new();

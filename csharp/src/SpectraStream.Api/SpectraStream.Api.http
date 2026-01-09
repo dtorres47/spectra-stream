@@ -1,6 +1,6 @@
 @SpectraStream.Api_HostAddress = http://localhost:5228
 
-GET {{SpectraStream.Api_HostAddress}}/weatherforecast/
+GET {{SpectraStream.Api_HostAddress}}/obs/
 Accept: application/json
 
 ###

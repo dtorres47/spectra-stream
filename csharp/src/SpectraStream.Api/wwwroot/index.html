@@ -3,119 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Stream Overlay 400x600</title>
+    <title>Stream Overlay</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/overlay-400x600.css" />
+    <link rel="stylesheet" href="/css/overlay.css" />
 </head>
 <body>
     <div class="overlay-container">
-        <!-- Background video only -->
-        <video id="animation-video"
-               class="background-video"
-               autoplay
-               muted
-               loop
-               playsinline
-               preload="auto">
-            <!-- TODO: adjust the src path if needed -->
-            <source src="content/overlay-400x600_background.mp4" type="video/mp4" />
-        </video>
+        <video id="animation-video" class="background-video" muted playsinline loop preload="metadata" src="/content/overlay-background.mp4"></video>
 
-        <!-- Scrollable quest list -->
+        <!-- Audio gate button - click once to enable sounds -->
+        <button id="audioGate">🔊 Enable Sound</button>
+
+        <!-- Connection status -->
+        <div id="wsStatus">WS: connecting</div>
+
+        <!-- Donation/ability toasts -->
+        <div id="messages"></div>
+
+        <!-- Active quests list -->
         <div class="quest-list">
-            <div class="quest-list-inner">
-                <!-- Sample quests: replace text with your new quest copy -->
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">S3x Change</div>
-                    <div class="quest-desc">
-                        Successfully misgender a man or woman!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">Call for Backup</div>
-                    <div class="quest-desc">
-                        Introduce another soundboard on the same call!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">Instant Aggro</div>
-                    <div class="quest-desc">
-                        Be extremely confrontational from the first second!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">Pizza Time</div>
-                    <div class="quest-desc">
-                        Successfully order a pizza with Fred!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">Confession</div>
-                    <div class="quest-desc">
-                        Call back a victim and confess to pranking them!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">Baby GOAT</div>
-                    <div class="quest-desc">
-                        Give someone a light GOATing!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">Gender Questioning</div>
-                    <div class="quest-desc">
-                        Have Constable Arnold question the suspect's gender identity!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">Whistle Test</div>
-                    <div class="quest-desc">
-                        Play Fred's whistle!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">Whistle Test</div>
-                    <div class="quest-desc">
-                        Play Fred's whistle!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">Tropical Delight</div>
-                    <div class="quest-desc">
-                        Play the StayPineapple hold music!
-                    </div>
-                </div>
-
-                <div class="quest-item active-quest">
-                    <div class="quest-title">X-TREME PINEGOATWHISTLE REDUX</div>
-                    <div class="quest-desc">
-                        GOAT noises, StayPineapple music, and Fred's whistle play at the sane time!
-                    </div>
-                </div>
-
-                <!-- Add more quests here -->
-            </div>
+            <div class="quest-list-inner" id="quests"></div>
         </div>
 
-        <!-- Stats bar at the bottom -->
-        <!--<div class="quest-stats">
-            <div class="stats-item">Active: 3</div>
-            <div class="stats-item">Completed: 0</div>
-            <div class="stats-item">Total: 3</div>
-            <div class="stats-item">XP: 115</div>
-        </div>-->
+        <!-- Active requests list -->
+        <div id="requests"></div>
+
+        <!-- Stats bar -->
+        <div class="quest-stats">
+            <div class="stats-item">Active: <span id="stat-active">0</span></div>
+            <div class="stats-item">Completed: <span id="stat-completed">0</span></div>
+            <div class="stats-item">Total: <span id="stat-total">0</span></div>
+        </div>
     </div>
 
-    <script src="/js/overlay-400x600.js"></script>
+    <script src="/js/overlay.js"></script>
 </body>
 </html>
