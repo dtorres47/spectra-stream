@@ -1,0 +1,37 @@
+{
+    "objectives": [
+        {
+            "id": "obj-maam",
+            "title": "Call a man \"ma'am\"",
+            "description": "Address a male viewer or guest as \"ma'am\" at least once."
+        },
+        {
+            "id": "obj-soundboard-5x",
+            "title": "Soundboard x5",
+            "description": "Use the designated soundboard sound five times during the session."
+        },
+        {
+            "id": "obj-goat",
+            "title": "Goat noises",
+            "description": "Make goat noises on request during the session."
+        }
+    ],
+    "quests": [
+        {
+            "id": "quest-maam",
+            "token": "[SS:MAAM]",
+            "title": "Ma'am Challenge",
+            "description": "A single objective: call a man \"ma'am\".",
+            "price_cents": 499,
+            "objective_ids": [ "obj-maam" ]
+        },
+        {
+            "id": "quest-2wk",
+            "token": "[SS:2WK]",
+            "title": "2 Week Package",
+            "description": "A bundle of challenges for the streamer to work through.",
+            "price_cents": 1499,
+            "objective_ids": [ "obj-maam", "obj-soundboard-5x", "obj-goat" ]
+        }
+    ]
+}
