@@ -3,7 +3,7 @@
 namespace SpectraStream.Api.Services
 {
     /// <summary>
-    /// The live overlay queue: quests purchased via Ko-fi and awaiting Toby.
+    /// The live overlay queue: quests purchased via Ko-fi and awaiting confirmation.
     /// Holds mutable runtime state (distinct from the read-only catalog).
     /// Whole quests are added and removed; there is no per-objective state.
     /// </summary>

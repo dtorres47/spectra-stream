@@ -35,8 +35,7 @@ namespace SpectraStream.Api.Models
         [JsonPropertyName("is_public")]
         public bool IsPublic { get; init; }
 
-        // ---- Reference only: kept to preserve the full payload shape ----
-
+        #region Reference only: kept to preserve the full payload shape
         /// <summary>Reference only. Unique per webhook; Ko-fi retries with the same id until it gets a 200.</summary>
         [JsonPropertyName("message_id")]
         public string MessageId { get; init; } = string.Empty;
@@ -99,5 +98,6 @@ namespace SpectraStream.Api.Models
         /// <summary>Reference only.</summary>
         [JsonPropertyName("discord_userid")]
         public string? DiscordUserId { get; init; }
+        #endregion
     }
 }
