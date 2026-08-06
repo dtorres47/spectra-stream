@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SpectraStream.Api.Clients;
+using SpectraStream.Api.Configuration;
 using SpectraStream.Api.Hubs;
 using SpectraStream.Api.Services;
 
@@ -18,6 +19,15 @@ builder.Services.AddHttpClient<IStreamlabsClient, StreamlabsClient>(client =>
 {
     client.BaseAddress = new Uri("http://localhost:3000/mock/streamlabs/");
 });
+
+// Bind Kofi config (real token supplied via env var Kofi__VerificationToken)
+builder.Services.Configure<KofiOptions>(
+    builder.Configuration.GetSection(KofiOptions.SectionName));
+
+// New quest-catalog services
+builder.Services.AddSingleton<IQuestCatalogService, QuestCatalogService>();
+builder.Services.AddSingleton<IQuestQueueService, QuestQueueService>();
+builder.Services.AddSingleton<SeenMessageTracker>();
 
 // Register service layer
 builder.Services.AddScoped<DonationService>();
