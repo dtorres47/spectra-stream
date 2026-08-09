@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using SpectraStream.Api.Clients;
 using SpectraStream.Api.Configuration;
 using SpectraStream.Api.Hubs;
 using SpectraStream.Api.Services;
@@ -12,33 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 
-// Domain services
-
-// Register typed HttpClient for Streamlabs
-builder.Services.AddHttpClient<IStreamlabsClient, StreamlabsClient>(client =>
-{
-    client.BaseAddress = new Uri("http://localhost:3000/mock/streamlabs/");
-});
-
 // Bind Kofi config (real token supplied via env var Kofi__VerificationToken)
 builder.Services.Configure<KofiOptions>(
     builder.Configuration.GetSection(KofiOptions.SectionName));
 
-// New quest-catalog services
+// Quest-catalog services
 builder.Services.AddSingleton<IQuestCatalogService, QuestCatalogService>();
 builder.Services.AddSingleton<IQuestQueueService, QuestQueueService>();
 builder.Services.AddSingleton<SeenMessageTracker>();
 
-// Register service layer
-builder.Services.AddScoped<DonationService>();
-builder.Services.AddHttpClient<DonationService>();
-builder.Services.AddSingleton<CatalogService>();
-builder.Services.AddSingleton<StateService>();
-builder.Services.AddSingleton<RequestService>();
-builder.Services.AddSingleton<TTSService>();
-builder.Services.AddSingleton<QuestService>();
-
-// Swagger/OpenAPI (optional, dev only)
+// Swagger/OpenAPI (dev only)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -59,61 +38,37 @@ app.MapControllers();
 // SignalR hub
 app.MapHub<OverlayHub>("/ws");
 
-// Default route -> overlay
+// Page routes
 app.MapGet("/", async context =>
 {
     context.Response.ContentType = "text/html; charset=utf-8";
     await context.Response.SendFileAsync(
-        Path.Combine(app.Environment.WebRootPath, "index.html")
-    );
+        Path.Combine(app.Environment.WebRootPath, "index.html"));
 });
 
 app.MapGet("/overlay", async context =>
 {
     context.Response.ContentType = "text/html; charset=utf-8";
     await context.Response.SendFileAsync(
-        Path.Combine(app.Environment.WebRootPath, "index.html")
-    );
+        Path.Combine(app.Environment.WebRootPath, "index.html"));
 });
 
-app.MapGet("/overlay-400x600", async context =>
+app.MapGet("/store", async context =>
 {
     context.Response.ContentType = "text/html; charset=utf-8";
     await context.Response.SendFileAsync(
-        Path.Combine(app.Environment.WebRootPath, "index-400x600.html")
-    );
+        Path.Combine(app.Environment.WebRootPath, "store.html"));
 });
 
 app.MapGet("/admin", async context =>
 {
     context.Response.ContentType = "text/html; charset=utf-8";
-    await context.Response.SendFileAsync(Path.Combine(app.Environment.WebRootPath, "admin.html"));
-});
-
-app.MapGet("/quests", async context =>
-{
-    context.Response.ContentType = "text/html; charset=utf-8";
     await context.Response.SendFileAsync(
-        Path.Combine(app.Environment.WebRootPath, "quests", "index.html")
-    );
+        Path.Combine(app.Environment.WebRootPath, "admin.html"));
 });
 
-// Test page
-app.MapGet("/test", async context =>
-{
-    context.Response.ContentType = "text/html; charset=utf-8";
-    await context.Response.SendFileAsync(
-        Path.Combine(app.Environment.WebRootPath, "test", "index.html")
-    );
-});
-
-// Health checks
-app.MapGet("/api/health", () =>
-    Results.Json(new { status = "ok", service = "spectra-stream" })
-);
-
+// Health check (kept for deployment — AWS/load balancers ping this)
 app.MapGet("/healthz", () =>
-    Results.Json(new { status = "ok", service = "spectra-stream" })
-);
+    Results.Json(new { status = "ok", service = "spectra-stream" }));
 
 app.Run("http://localhost:3000");
