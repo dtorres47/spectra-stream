@@ -3,64 +3,57 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Support the Stream</title>
-    <link rel="stylesheet" href="/css/donate.css" />
+    <title>Quest Store</title>
+    <link rel="stylesheet" href="/css/store.css" />
 </head>
 <body>
     <main>
         <header>
-            <h1>Support the Stream</h1>
-            <p class="subtitle">Pick an ability or quest, then fill out your info below</p>
+            <h1>Quest Store</h1>
+            <p class="subtitle">Pick a quest, copy its code, and paste it into your Ko-fi message</p>
         </header>
 
-        <!-- Abilities Section -->
+        <!-- How it works -->
         <section class="card">
-            <h2>⚡ Abilities</h2>
-            <p class="desc">Instant effects! Sound plays on stream, then your name and message appear with TTS.</p>
-            <div id="abilities-grid" class="option-grid">
-                <div class="loading">Loading abilities...</div>
-            </div>
+            <h2>📋 How It Works</h2>
+            <ol class="how-it-works">
+                <li>Pick a quest below and copy its code</li>
+                <li>Head to the Ko-fi page and make your donation</li>
+                <li>Paste the code into your Ko-fi message</li>
+                <li>Watch your quest appear live on stream!</li>
+            </ol>
         </section>
 
-        <!-- Quests Section -->
+        <!-- Quests -->
         <section class="card">
             <h2>🎯 Quests</h2>
-            <p class="desc">Give the streamer a challenge to complete!</p>
+            <p class="desc">Challenges for the streamer to complete, live on stream.</p>
             <div id="quests-grid" class="option-grid">
                 <div class="loading">Loading quests...</div>
             </div>
         </section>
 
-        <!-- Donor Info -->
-        <section class="card donor-card">
-            <h2>Your Info</h2>
-            <div class="field">
-                <label for="donor">Your Name</label>
-                <input type="text" id="donor" placeholder="Anonymous" />
-            </div>
-            <div class="field">
-                <label for="amount">Amount (USD)</label>
-                <input type="number" id="amount" min="1" step="0.01" value="5.00" />
-            </div>
-            <div class="field" id="message-field">
-                <label for="message">Message <span class="hint">(TTS reads this for abilities)</span></label>
-                <textarea id="message" rows="2" placeholder="Say something nice..."></textarea>
+        <!-- Selected quest detail -->
+        <section class="card hidden" id="quest-detail">
+            <h2 id="detail-title"></h2>
+            <p class="desc" id="detail-desc"></p>
+            <ul id="detail-objectives" class="objectives-list"></ul>
+
+            <div class="token-row">
+                <code id="detail-token" class="token"></code>
+                <button id="copy-btn" class="submit-btn">Copy Code</button>
             </div>
 
-            <div class="selection-summary" id="selection-summary">
-                <span class="selection-label">Selected:</span>
-                <span class="selection-name" id="selection-name">None</span>
-                <span class="selection-price" id="selection-price"></span>
-            </div>
-
-            <button id="submit-btn" class="submit-btn" disabled>Select an ability or quest</button>
+            <a id="kofi-link" href="#" target="_blank" rel="noopener" class="kofi-btn">
+                ☕ Go to Ko-fi
+            </a>
         </section>
 
         <!-- Status message -->
         <div id="status" class="status hidden"></div>
 
         <footer>
-            <p>Powered by SpectraStream</p>
+            <p>Powered by SpectraStream · No payments are handled on this site</p>
         </footer>
     </main>
 

@@ -11,31 +11,21 @@
     <div class="overlay-container">
         <video id="animation-video" class="background-video" muted playsinline loop preload="metadata" src="/content/overlay-background.mp4"></video>
 
-        <!-- Audio gate button - click once to enable sounds -->
-        <button id="audioGate">🔊 Enable Sound</button>
-
         <!-- Connection status -->
         <div id="wsStatus">WS: connecting</div>
-
-        <!-- Donation/ability toasts -->
-        <div id="messages"></div>
 
         <!-- Active quests list -->
         <div class="quest-list">
             <div class="quest-list-inner" id="quests"></div>
         </div>
 
-        <!-- Active requests list -->
-        <div id="requests"></div>
-
         <!-- Stats bar -->
         <div class="quest-stats">
             <div class="stats-item">Active: <span id="stat-active">0</span></div>
-            <div class="stats-item">Completed: <span id="stat-completed">0</span></div>
-            <div class="stats-item">Total: <span id="stat-total">0</span></div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
     <script src="/js/overlay.js"></script>
 </body>
 </html>

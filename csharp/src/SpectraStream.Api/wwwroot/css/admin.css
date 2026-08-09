@@ -1,185 +1,84 @@
-:root { color-scheme: dark; }
+const queueEl = document.getElementById('queue');
 
-html, body {
-    margin: 0;
-    font-family: system-ui, sans-serif;
-    background: #0f1115;
-    color: #e6e6e6;
+async function loadQueue() {
+    try
+
+{
+    const queue = await fetch('/api/queue').then(r => r.json());
+    render(queue);
 }
 
-/* Admin Navigation Bar */
-.admin-nav {
-    background: #0a0c10;
-    border-bottom: 1px solid #202632;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    overflow-x: auto;
+catch (e) {
+    queueEl .innerHTML = '<div class="item"><em>Failed to load queue</em></div>';
+    console .error('Queue load failed:', e);
 }
 
-.admin-nav .nav-brand {
-    font-weight: 600;
-    color: #fff;
-    padding: 14px 16px 14px 0;
-    border-right: 1px solid #202632;
-    margin-right: 8px;
-    white-space: nowrap;
-    font-size: 14px;
 }
 
-.admin-nav a {
-    color: #9ab;
-    text-decoration: none;
-    padding: 14px 12px;
-    font-size: 13px;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    white-space: nowrap;
+function render(queue) {
+    if (!queue.length)
+
+{
+    queueEl .innerHTML = '<div class="item"><em>No active quests</em></div>';
+    return;
 }
 
-.admin-nav a:hover {
-    color: #e6e6e6;
-    background: rgba(255,255,255,0.05);
+queueEl.innerHTML = '';
+queue.forEach(q => {
+        const d = document.createElement('div');
+        d.className = 'item';
+
+        const objectives = (q.objectives || [])
+            .map(o => escapeHtml(o.title))
+            .join(', ');
+
+        const when = q.createdAt ? new Date(q.createdAt).toLocaleTimeString() : '';
+
+        d.innerHTML = `<div>
+            <strong>${escapeHtml(q.title)}</strong>
+            <small class="mono">from ${escapeHtml(q.supporter || 'Anonymous')}${when ? ' · ' + when : ''}</small>
+            ${objectives ? `<br/><small class="mono">${objectives}</small>` : ''}
+        </div>`;
+
+        const btn = document.createElement('button');
+        btn.textContent = 'Complete';
+        btn.onclick = async () => {
+            btn.disabled = true;
+            const res = await fetch(
+                `/api/queue/remove?instanceId=${encodeURIComponent(q.instanceId)}`,
+                { method: 'POST' }
+            ).catch(() => null);
+            if (!res || !res.ok) {
+                btn.disabled = false;
+                console.warn('Remove failed');
+                return;
+            }
+            loadQueue();
+        };
+        d.appendChild(btn);
+        queueEl.appendChild(d);
+    });
 }
 
-.admin-nav a.active {
-    color: #2b6fef;
-    border-bottom-color: #2b6fef;
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div .textContent = text ?? '';
+    return div.innerHTML;
 }
 
-.admin-nav .nav-spacer {
-    flex: 1;
-}
+// Live updates: re-render whenever a quest is added or removed
+const connection = new signalR.HubConnectionBuilder()
+.withUrl('/ws')
+.withAutomaticReconnect()
+.build();
 
-.admin-nav .nav-external {
-    color: #6b7280;
-    font-size: 12px;
-    padding: 14px 8px;
-}
+connection.on('ReceiveEvent', msg => {
+    if (msg && (msg.type === 'QUEST_UPSERT' || msg.type === 'QUEST_REMOVE')) {
+        loadQueue();
+    }
+});
+connection.onreconnected(loadQueue);
+connection.start().catch(() => {/* polling via Refresh still works */});
 
-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid #202632;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-    background: #0a0c10;
-}
-
-header strong {
-    font-size: 16px;
-    color: #fff;
-}
-
-main {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 16px;
-}
-
-.card {
-    background: #131824;
-    border: 1px solid #202632;
-    border-radius: 12px;
-    padding: 16px;
-}
-
-.row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-label {
-    font-size: 12px;
-    color: #aab;
-}
-
-input, select {
-    background: #0e1320;
-    color: #e6e6e6;
-    border: 1px solid #2a3242;
-    border-radius: 6px;
-    padding: 8px 10px;
-    font-size: 13px;
-}
-
-input:focus, select:focus {
-    outline: none;
-    border-color: #2b6fef;
-}
-
-button {
-    background: #2b6fef;
-    color: white;
-    border: 0;
-    border-radius: 6px;
-    padding: 8px 14px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-button:hover {
-    background: #3d7ef7;
-}
-
-button.secondary {
-    background: #384255;
-}
-
-button.secondary:hover {
-    background: #4a5568;
-}
-
-h3 {
-    margin: 0 0 12px 0;
-    font-size: 16px;
-    color: #fff;
-}
-
-h4 {
-    font-size: 14px;
-    color: #dfe6ff;
-}
-
-.list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #0e1320;
-    border: 1px solid #2a3242;
-    border-radius: 8px;
-    padding: 12px;
-}
-
-.item em {
-    color: #6b7280;
-    font-style: italic;
-}
-
-small.mono {
-    font-family: ui-monospace, Menlo, Consolas, monospace;
-    color: #9ab;
-    font-size: 11px;
-}
-
-.btns {
-    display: flex;
-    gap: 6px;
-}
-
-.btns button {
-    padding: 6px 10px;
-    font-size: 11px;
-}
+document.getElementById('refresh').onclick = loadQueue;
+loadQueue();
