@@ -1,29 +1,44 @@
 # Spectra Stream
 
-**Interactive streaming overlay system** for live broadcasts—powering real-time quests, donations, TTS, and visual effects.
+**Quest storefront and live overlay for Ko-fi-powered streams.** Viewers buy
+preset challenges through Ko-fi; quests appear live on stream; the streamer
+clears them as they're completed.
 
-## 🎯 Project Goals
-- Build a production-ready overlay system in **C#/.NET** (current)
+## Project Goals
+- Build a production-ready quest system in **C#/.NET** (current)
 - Translate to **Go** to demonstrate cross-language architecture skills
-- Showcase **vertical slice architecture** for maintainable, scalable design
+- Showcase clean, config-driven design for maintainable, scalable systems
 
-## ✨ Features (In Progress)
-- 🎨 **Retro-styled overlay** with pixel art and animated backgrounds
-- 📊 **Real-time quest system** via WebSockets
-- 💰 **Donation tracking** with persistent logging
-- 🎬 **Dynamic animations** triggered by stream events
-- 🎛️ **Streamer control panel** for managing quests and testing events
+## How It Works
+1. **Store** — viewers browse preset quests and packages, copy a quest token
+   (e.g. `#ss2wk`), and are directed to the streamer's Ko-fi page
+2. **Ko-fi** — the viewer pays and pastes the token into their Ko-fi message.
+   This app handles no money
+3. **Webhook** — Ko-fi POSTs the payment event to `/api/kofi/webhook`; the
+   app verifies, dedupes, matches the token, and enqueues the quest
+4. **Overlay** — the quest queue displays live on stream (OBS browser source)
+   via SignalR
+5. **Admin** — the streamer removes quests from a private panel as they're
+   completed
 
-## 🏗️ Current Status
-- ✅ **C# implementation**: Core overlay, quest system, and WebSocket communication functional
-- 🚧 **Go translation**: Architecture planning in progress
+## Current Status
+- **C# backend**: catalog, live queue, Ko-fi webhook intake complete
+- **Frontend**: store/overlay/admin pages being converted to the new flow
+- **Go translation**: follows after C# v1 ships
 
-## 🧠 Architecture
-Vertical slice design with:
-- Backend: HTTP/WebSocket API for event handling
-- Frontend: Standalone web overlay with live updates
-- Config-driven: JSON-based quests and branding
+## Architecture
+- **Catalog** (read-only, fail-fast JSON load): reusable objectives referenced
+  by preset quests — no magic strings
+- **Queue** (in-memory, lock-guarded): live quest instances, removed whole
+- **Webhook** (composition point): verify → dedupe → match → enqueue →
+  broadcast; returns 200 to anything genuinely from Ko-fi so retries stop
+- **Transport-free services**: SignalR broadcasting lives in controllers only
+
+## Configuration
+The Ko-fi verification token is supplied via environment variable
+(`Kofi__VerificationToken`) — never committed.
 
 ---
 
-*The C# version serves as the stable baseline. The Go translation will follow once core features are complete.*
+*The C# version is the stable baseline. The Go translation follows once v1
+is test-confirmed.*
