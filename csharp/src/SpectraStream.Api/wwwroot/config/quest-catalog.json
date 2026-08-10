@@ -1,37 +1,37 @@
 {
     "objectives": [
         {
+            "id": "obj-pizza",
+            "title": "Order and cancel a pizza",
+            "description": "Order a pizza live on stream, then cancel it."
+        },
+        {
             "id": "obj-maam",
             "title": "Call a man \"ma'am\"",
             "description": "Address a male viewer or guest as \"ma'am\" at least once."
         },
         {
-            "id": "obj-soundboard-5x",
-            "title": "Soundboard x5",
-            "description": "Use the designated soundboard sound five times during the session."
-        },
-        {
-            "id": "obj-goat",
-            "title": "Goat noises",
-            "description": "Make goat noises on request during the session."
+            "id": "obj-accent",
+            "title": "Accent challenge",
+            "description": "Speak in an accent of the buyer's choice for 5 minutes."
         }
     ],
     "quests": [
         {
-            "id": "quest-maam",
-            "token": "[SS:MAAM]",
-            "title": "Ma'am Challenge",
-            "description": "A single objective: call a man \"ma'am\".",
+            "id": "quest-pizza",
+            "token": "#sspizza",
+            "title": "Pizza Prank",
+            "description": "One task: order and cancel a pizza, live.",
             "price_cents": 499,
-            "objective_ids": [ "obj-maam" ]
+            "objective_ids": [ "obj-pizza" ]
         },
         {
-            "id": "quest-2wk",
-            "token": "[SS:2WK]",
-            "title": "2 Week Package",
-            "description": "A bundle of challenges for the streamer to work through.",
+            "id": "quest-chaos",
+            "token": "#sschaos",
+            "title": "Chaos Package",
+            "description": "A bundle of challenges to work through on stream.",
             "price_cents": 1499,
-            "objective_ids": [ "obj-maam", "obj-soundboard-5x", "obj-goat" ]
+            "objective_ids": [ "obj-pizza", "obj-maam", "obj-accent" ]
         }
     ]
 }

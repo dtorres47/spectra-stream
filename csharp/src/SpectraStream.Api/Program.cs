@@ -10,12 +10,13 @@ builder.Services.AddSignalR();
 
 // Bind Kofi config (real token supplied via env var Kofi__VerificationToken)
 builder.Services.Configure<KofiOptions>(
-    builder.Configuration.GetSection(KofiOptions.SectionName));
+builder.Configuration.GetSection(KofiOptions.SectionName));
 
 // Quest-catalog services
 builder.Services.AddSingleton<IQuestCatalogService, QuestCatalogService>();
 builder.Services.AddSingleton<IQuestQueueService, QuestQueueService>();
 builder.Services.AddSingleton<SeenMessageTracker>();
+
 
 // Swagger/OpenAPI (dev only)
 builder.Services.AddEndpointsApiExplorer();
@@ -34,6 +35,7 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseRouting();
 app.MapControllers();
+app.Services.GetRequiredService<IQuestCatalogService>();
 
 // SignalR hub
 app.MapHub<OverlayHub>("/ws");

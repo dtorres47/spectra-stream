@@ -82,6 +82,7 @@ namespace SpectraStream.Api.Controllers
 
             // 4. Match the message text to a preset quest (token-first).
             var match = _catalog.MatchMessage(message);
+
             if (!match.IsMatch || match.Quest is null)
                 return Ok(); // a tip with no quest token — nothing to do
 

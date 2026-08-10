@@ -1,9 +1,13 @@
-﻿namespace SpectraStream.Api.Models
+﻿using System.Text.Json.Serialization;
+
+namespace SpectraStream.Api.Models
 {
-    /// <summary>Root object that quest-catalog.json deserializes into.</summary>
     public class QuestCatalog
     {
+        [JsonPropertyName("objectives")]
         public List<Objective> Objectives { get; set; } = new();
+
+        [JsonPropertyName("quests")]
         public List<PresetQuest> Quests { get; set; } = new();
     }
 }
