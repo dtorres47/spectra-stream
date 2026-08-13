@@ -73,4 +73,4 @@ app.MapGet("/admin", async context =>
 app.MapGet("/healthz", () =>
     Results.Json(new { status = "ok", service = "spectra-stream" }));
 
-app.Run("http://localhost:3000");
+app.Run();
