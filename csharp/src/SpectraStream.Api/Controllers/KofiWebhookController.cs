@@ -62,6 +62,13 @@ namespace SpectraStream.Api.Controllers
             if (payload is null)
                 return BadRequest("empty data payload");
 
+            string messageId = payload.MessageId;
+            string message = payload.Message;
+            string type = payload.Type;
+
+            _logger.LogInformation($"Ko-fi webhook received: type={type}, message_id={messageId}",
+                type, messageId);
+
             // 2. Verify it's really from Ko-fi. Mismatch -> 200 so Ko-fi doesn't retry.
             if (string.IsNullOrEmpty(_expectedToken) ||
                 !string.Equals(payload.VerificationToken, _expectedToken, StringComparison.Ordinal))
@@ -69,9 +76,6 @@ namespace SpectraStream.Api.Controllers
                 _logger.LogWarning("Ko-fi webhook rejected: verification token mismatch.");
                 return Ok();
             }
-
-            string messageId = payload.MessageId;
-            string message = payload.Message;
 
             // 3. Dedupe on message_id (Ko-fi retries the same id until it gets a 200).
             if (!_seen.TryAdd(messageId))
@@ -84,7 +88,10 @@ namespace SpectraStream.Api.Controllers
             var match = _catalog.MatchMessage(message);
 
             if (!match.IsMatch || match.Quest is null)
+            {
+                _logger.LogInformation($"Ko-fi message {messageId} had no quest token; dropped.", messageId);
                 return Ok(); // a tip with no quest token — nothing to do
+            }
 
             // 5. Enqueue and 6. broadcast. Supporter hidden if the tip isn't public.
             var supporter = payload.IsPublic ? payload.FromName : "Anonymous";
