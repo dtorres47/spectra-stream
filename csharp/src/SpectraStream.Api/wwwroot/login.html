@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign in</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #101418;
+            color: #e6e6e6;
+            font-family: system-ui, sans-serif;
+        }
+
+        form {
+            display: flex;
+            gap: 8px;
+        }
+
+        input {
+            padding: 10px 12px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background: #1a2027;
+            color: inherit;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            background: #2e6fd8;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #msg {
+            position: fixed;
+            bottom: 24px;
+            color: #d86a6a;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm">
+        <input id="key" type="password" autocomplete="current-password" autofocus />
+        <button type="submit">Sign in</button>
+    </form>
+    <div id="msg"></div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const body = new FormData();
+            body.append("key", document.getElementById("key").value);
+
+            const res = await fetch("/api/admin/login", { method: "POST", body });
+
+            if (res.ok) {
+                window.location.href = "/admin";
+            } else {
+                document.getElementById("msg").textContent = "Sign in failed.";
+                document.getElementById("key").value = "";
+            }
+        });
+    </script>
+</body>
+</html>
