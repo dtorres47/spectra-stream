@@ -9,6 +9,53 @@
     line-height: 1.6;
 }
 
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.option-item {
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(0, 255, 0, 0.55);
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+}
+
+    .option-item:hover {
+        box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+    }
+
+    .option-item.selected {
+        border: 2px solid #00ff00;
+        box-shadow: 0 0 10px #00ff00;
+    }
+
+.option-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.option-name {
+    display: block;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: #00ff00;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.option-price {
+    display: block;
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.loading {
+    color: #7fbf7f;
+}
+
 .token-row {
     display: flex;
     gap: 12px;
@@ -19,8 +66,9 @@
 .token {
     font-size: 1.2em;
     padding: 8px 14px;
-    background: rgba(0,0,0,0.25);
-    border-radius: 6px;
+    color: #ffd700;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px dashed rgba(0, 255, 0, 0.55);
     letter-spacing: 1px;
 }
 
@@ -33,3 +81,19 @@
     text-decoration: none;
     font-weight: bold;
 }
+
+.status {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 18px;
+    background: #000;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+}
+
+    .status.error {
+        border-color: #ff4444;
+        color: #ff4444;
+    }

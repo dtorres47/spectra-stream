@@ -1,84 +1,119 @@
-const queueEl = document.getElementById('queue');
+/* Admin panel — black + green theme on top of theme.css */
 
-async function loadQueue() {
-    try
-
-{
-    const queue = await fetch('/api/queue').then(r => r.json());
-    render(queue);
+.admin-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #00ff00;
+    box-shadow: 0 0 12px rgba(0, 255, 0, 0.6);
+    padding: 0 20px 0 0;
+    margin: 16px 0 0 0;
 }
 
-catch (e) {
-    queueEl .innerHTML = '<div class="item"><em>Failed to load queue</em></div>';
-    console .error('Queue load failed:', e);
-}
-
-}
-
-function render(queue) {
-    if (!queue.length)
-
-{
-    queueEl .innerHTML = '<div class="item"><em>No active quests</em></div>';
-    return;
-}
-
-queueEl.innerHTML = '';
-queue.forEach(q => {
-        const d = document.createElement('div');
-        d.className = 'item';
-
-        const objectives = (q.objectives || [])
-            .map(o => escapeHtml(o.title))
-            .join(', ');
-
-        const when = q.createdAt ? new Date(q.createdAt).toLocaleTimeString() : '';
-
-        d.innerHTML = `<div>
-            <strong>${escapeHtml(q.title)}</strong>
-            <small class="mono">from ${escapeHtml(q.supporter || 'Anonymous')}${when ? ' · ' + when : ''}</small>
-            ${objectives ? `<br/><small class="mono">${objectives}</small>` : ''}
-        </div>`;
-
-        const btn = document.createElement('button');
-        btn.textContent = 'Complete';
-        btn.onclick = async () => {
-            btn.disabled = true;
-            const res = await fetch(
-                `/api/queue/remove?instanceId=${encodeURIComponent(q.instanceId)}`,
-                { method: 'POST' }
-            ).catch(() => null);
-            if (!res || !res.ok) {
-                btn.disabled = false;
-                console.warn('Remove failed');
-                return;
-            }
-            loadQueue();
-        };
-        d.appendChild(btn);
-        queueEl.appendChild(d);
-    });
-}
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div .textContent = text ?? '';
-    return div.innerHTML;
-}
-
-// Live updates: re-render whenever a quest is added or removed
-const connection = new signalR.HubConnectionBuilder()
-.withUrl('/ws')
-.withAutomaticReconnect()
-.build();
-
-connection.on('ReceiveEvent', msg => {
-    if (msg && (msg.type === 'QUEST_UPSERT' || msg.type === 'QUEST_REMOVE')) {
-        loadQueue();
+    .admin-nav .nav-brand {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 12px;
+        color: #000;
+        background: #000;
+        color: #00ff00;
+        padding: 14px 16px;
+        margin-right: 8px;
+        white-space: nowrap;
     }
-});
-connection.onreconnected(loadQueue);
-connection.start().catch(() => {/* polling via Refresh still works */});
 
-document.getElementById('refresh').onclick = loadQueue;
-loadQueue();
+    .admin-nav a {
+        color: #000;
+        text-decoration: none;
+        padding: 14px 12px;
+        font-size: 13px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+        .admin-nav a:visited {
+            color: #000;
+        }
+
+        .admin-nav a:hover {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .admin-nav a.active {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+    .admin-nav .nav-spacer {
+        flex: 1;
+    }
+
+    .admin-nav .nav-external {
+        color: #003300;
+        font-size: 12px;
+    }
+
+    .admin-nav .nav-external {
+        color: #3f7f3f;
+        font-size: 12px;
+    }
+
+header {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    header strong {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 14px;
+        color: #00ff00;
+        text-shadow: 0 0 4px #00ff00;
+    }
+
+h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    font-weight: normal;
+    color: #00ff00;
+    margin-top: 0;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+    .item:last-child {
+        border-bottom: none;
+    }
+
+    .item strong {
+        color: #00ff00;
+    }
+
+    .item small.mono {
+        display: block;
+        font-family: 'Courier New', monospace;
+        color: #7fbf7f;
+        margin-top: 2px;
+    }
+
+    .item button {
+        flex-shrink: 0;
+    }
+
+        .item button:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+em {
+    color: #7fbf7f;
+}

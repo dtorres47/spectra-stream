@@ -1,0 +1,85 @@
+﻿/* Site theme — black + neon green.
+   Shared by store, admin, login. Overlay has its own CSS. */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #000;
+    color: #b8e6b8;
+    font-family: 'Courier New', monospace;
+}
+
+main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+}
+
+h1, h2 {
+    font-family: 'Press Start 2P', monospace;
+    color: #00ff00;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 22px;
+    text-shadow: 0 0 4px #00ff00, 0 0 8px #00ff00, 0 0 12px #00ff00;
+}
+
+h2 {
+    font-size: 14px;
+    text-shadow: 0 0 4px #00ff00;
+}
+
+.card {
+    background: rgba(0, 255, 0, 0.04);
+    border: 1px solid rgba(0, 255, 0, 0.55);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3), 0 0 6px rgba(0, 255, 0, 0.15);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+}
+
+.subtitle, .desc {
+    color: #7fbf7f;
+}
+
+button, .submit-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    padding: 10px 16px;
+    background: #000;
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    cursor: pointer;
+}
+
+    button:hover, .submit-btn:hover {
+        background: #00ff00;
+        color: #000;
+        box-shadow: 0 0 10px #00ff00;
+    }
+
+input {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 10px 12px;
+    background: #050a05;
+    color: #b8e6b8;
+    border: 1px solid rgba(0, 255, 0, 0.55);
+}
+
+    input:focus {
+        outline: none;
+        border-color: #00ff00;
+        box-shadow: 0 0 6px rgba(0, 255, 0, 0.4);
+    }
+
+footer {
+    text-align: center;
+    color: #3f7f3f;
+    font-size: 12px;
+}
+
+.hidden {
+    display: none;
+}
